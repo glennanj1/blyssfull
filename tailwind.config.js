@@ -1,8 +1,10 @@
 module.exports = {
+  important: true,
   content: [
-    "./Utils/**/*.{html,js,jsx}",
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./Components/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.js",
+    "./pages/**/*.js",
+    "./Components/**/*.js",
+    "./Utils/**/*.js",
   ],
   theme: {
     extend: {
