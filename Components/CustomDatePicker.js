@@ -1,11 +1,19 @@
 // components/CustomDatePicker.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
-import { isPast, isMonday, isWednesday, setHours, setMinutes } from 'date-fns';
+import { isPast, isMonday, isWednesday, setHours, setMinutes, addDays } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const CustomDatePicker = ({ onChange }) => {
   const [startDate, setStartDate] = useState(null);
+
+  useEffect(() => {
+    let nextAvailableDate = new Date();
+    while (!filterPassedTime(nextAvailableDate)) {
+      nextAvailableDate = addDays(nextAvailableDate, 1);
+    }
+    setStartDate(nextAvailableDate);
+  }, []);
 
   const filterPassedTime = (time) => {
     const currentTime = new Date();
@@ -21,11 +29,9 @@ const CustomDatePicker = ({ onChange }) => {
 
   const handleDateChange = (date) => {
     if (date) {
-      // Check if there's a time present
       const hours = date.getHours();
       const minutes = date.getMinutes();
-  
-      // If hours and minutes are both not 0, consider time present
+
       if (hours !== 0 || minutes !== 0) {
         setStartDate(date);
         onChange(date);
@@ -33,7 +39,7 @@ const CustomDatePicker = ({ onChange }) => {
         setStartDate(null);
       }
     } else {
-        setStartDate(null);
+      setStartDate(null);
     }
   };
 
@@ -54,5 +60,4 @@ const CustomDatePicker = ({ onChange }) => {
   );
 };
 
-
-export default CustomDatePicker
+export default CustomDatePicker;
