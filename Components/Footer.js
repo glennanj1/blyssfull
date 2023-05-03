@@ -10,11 +10,11 @@ function Footer() {
         <div className="grid sm:grid-cols-12 gap-8 py-8 md:py-12 border-t border-gray-200">
 
           {/* 1st block */}
-          <div className="sm:col-span-12 lg:col-span-3">
+          <div className="sm:col-span-12 lg:col-span-2">
             <div className="mb-2">
               {/* Logo */}
               <Link href='' className="inline-block" aria-label="Cruip">
-                <svg className="w-8 h-8" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                {/* <svg className="w-8 h-8" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <radialGradient cx="21.152%" cy="86.063%" fx="21.152%" fy="86.063%" r="79.941%" id="footer-logo">
                       <stop stopColor="purple" offset="0%" />
@@ -23,40 +23,107 @@ function Footer() {
                     </radialGradient>
                   </defs>
                   <rect width="32" height="32" rx="16" fill="url(#footer-logo)" fillRule="nonzero" />
-                </svg>
+                </svg> */}
+                <img src='/eye6.svg' className="w-16 h-16" alt='logo2 ' />
               </Link>
             </div>
-            <div className="text-sm text-gray-600">
-              <Link href='' className="text-gray-600 hover:text-gray-900 hover:underline transition duration-150 ease-in-out">Terms</Link> · <Link href='' className="text-gray-600 hover:text-gray-900 hover:underline transition duration-150 ease-in-out">Privacy Policy</Link>
-            </div>
+            {/* <div className="text-sm text-gray-600">
+              <Link
+                href={{
+                  pathname: "/Policies",
+                  query: {
+                    type: 'Terms'
+                  }
+                }}
+                as="/Terms"
+                className="text-gray-600 hover:text-gray-900 hover:underline transition duration-150 ease-in-out">Terms</Link>
+              ·
+              <Link href={{
+                pathname: "/Policies",
+                query: {
+                  type: 'Privacy'
+                }
+              }} 
+              as='/PrivacyPolicy'
+              className="text-gray-600 hover:text-gray-900 hover:underline transition duration-150 ease-in-out">Privacy Policy</Link>
+            </div> */}
           </div>
 
           {/* 2nd block */}
-          <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
+          {/* <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
             <h6 className="text-gray-800 font-medium mb-2">Products</h6>
             <ul className="text-sm">
               <li className="mb-2">
                 <Link href='' className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Healing Potions</Link>
-              </li>                          
+              </li>
             </ul>
-          </div>
+          </div> */}
 
           {/* 3rd block */}
-          <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
+          <div className="sm:col-span-6 md:col-span-3 lg:col-span-3">
             <h6 className="text-gray-800 font-medium mb-2">Resources</h6>
             <ul className="text-sm">
               <li className="mb-2">
-                <Link href='' className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Terms & Conditions</Link>
+                <Link
+                  href={{
+                    pathname: "/Policies",
+                    query: {
+                      type: 'Cookie'
+                    }
+                  }}
+                  as="/CookiePolicy"
+                  className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Cookie Policy</Link>
+              </li>
+              <li className="mb-2">
+                <Link
+                  href={{
+                    pathname: "/Policies",
+                    query: {
+                      type: 'Disclaimer'
+                    }
+                  }}
+                  as="/Disclaimer"
+                  className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Disclaimer</Link>
+              </li>
+              <li className="mb-2">
+              <Link
+                href={{
+                  pathname: "/Policies",
+                  query: {
+                    type: 'Terms'
+                  }
+                }}
+                as="/Terms"
+                className="text-gray-600 hover:text-gray-900 hover:underline transition duration-150 ease-in-out">Terms</Link>
+              </li>
+              <li className="mb-2">
+              <Link href={{
+                pathname: "/Policies",
+                query: {
+                  type: 'Privacy'
+                }
+              }} 
+              as='/PrivacyPolicy'
+              className="text-gray-600 hover:text-gray-900 hover:underline transition duration-150 ease-in-out">Privacy Policy</Link>
               </li>
             </ul>
           </div>
 
           {/* 4th block */}
-          <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
+          <div className="sm:col-span-6 md:col-span-3 lg:col-span-3">
             <h6 className="text-gray-800 font-medium mb-2">Navigation</h6>
             <ul className="text-sm">
               <li className="mb-2">
                 <Link href='/' className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Home</Link>
+              </li>
+              <li className="mb-2">
+                <Link href='/book' className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Book</Link>
+              </li>
+              <li className="mb-2">
+                <Link href='/About' className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">About</Link>
+              </li>
+              <li className="mb-2">
+                <Link href='/learnmore' className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Pricing</Link>
               </li>
             </ul>
           </div>
@@ -83,7 +150,7 @@ function Footer() {
                 </div>
               </div>
             </form>
-          </div>          
+          </div>
 
         </div>
 

@@ -39,7 +39,7 @@ function HeroHome() {
 
           {/* Section header */}
           <div className="flex flex-col items-center flex-wrap content-center justify-center text-center pb-12 md:pb-16">
-          <img src='/b9.svg' width="100%" className="h-20v" alt="logo" />
+          <img src='/b9.svg' width="100%" className="h-20v hover:animate-float" style={{filter: 'drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4))'}} alt="logo" />
             {session ? (
             <h1 className="break-words text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4" data-aos="zoom-y-out">Welcome <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-700 to-blue-700">{session.user.email}</span></h1>
             ) : (
