@@ -65,7 +65,6 @@ export default function Booking() {
                 <div>
                   <div
                     className="relative flex justify-center mb-8 h-40v bg-bottom"
-                    data-aos="zoom-in"
                   >
                     <div className="flex flex-col justify-top">
                       <div class="max-w-sm rounded overflow-hidden shadow-lg shadow-indigo-500/50">
@@ -199,7 +198,6 @@ export default function Booking() {
                     <div key={b.id}>
                       <div
                         className="relative flex justify-center mb-8 h-40v bg-bottom"
-                        data-aos="fade-up"
                       >
                         <div className="flex flex-col justify-top">
                           <div class="max-w-sm rounded overflow-hidden shadow-lg shadow-indigo-500/50">
