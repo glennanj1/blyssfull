@@ -4,6 +4,10 @@ export default function Verifyrequest() {
   const [emailSent, setEmailSent] = useState();
   const router = useRouter();
 
+  let handleClick = () => {
+    router.push('/');
+  }
+
   useEffect(() => {
     setTimeout(() => {
       setEmailSent(true);
@@ -49,8 +53,7 @@ export default function Verifyrequest() {
               Email Sent!
             </button>
             <button
-              onClick={() => router.push('/')}
-              disabled
+              onClick={handleClick}
               className="group relative flex w-full justify-center rounded-md bg-purple-700 py-2 px-3 text-sm font-semibold text-white hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Go Home
