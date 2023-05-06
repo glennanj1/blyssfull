@@ -19,7 +19,7 @@ function Pricing() {
             <div className="max-w-3xl mx-auto text-center pt-12 pb-12 md:pb-20">
               <h2 className="h2 mb-4">Our Pricing</h2>
               <p className="text-xl text-gray-600">
-                Experience the transformative powers of our session.
+                Sessions
               </p>
             </div>
 
@@ -158,7 +158,7 @@ function Pricing() {
                 </svg>
                 <h5 className="text-sm font-bold leading-snug tracking-tight mb-1">$33.00</h5>
                 <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">
-                  30 minute Tarot Readings
+                  30 minute Distance Tarot Readings
                 </h4>
                 <p className="text-gray-600 text-center">
                   In a Tarot reading session, we use the cards to speak & I
@@ -210,7 +210,7 @@ function Pricing() {
                 </svg>
                 <h5 className="text-sm font-bold leading-snug tracking-tight mb-1">$33.00</h5>
                 <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">
-                  30 minute Oracle Reading
+                  30 minute Distance Oracle Reading
                 </h4>
                 <p className="text-gray-600 text-center">
                   With an oracle read, this is if you are wanting something more
@@ -248,7 +248,7 @@ function Pricing() {
                 </svg>
                 <h5 className="text-sm font-bold leading-snug tracking-tight mb-1">$22.00</h5>
                 <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">
-                  15 minute Oracle Reading
+                  15 minute Distance Oracle Reading
                 </h4>
                 <p className="text-gray-600 text-center">
                   With an oracle read, this is if you are wanting something more
@@ -293,9 +293,9 @@ function Pricing() {
                     </g>
                   </g>
                 </svg>
-                <h5 className="text-sm font-bold leading-snug tracking-tight mb-1">$15.00</h5>
+                <h5 className="text-sm font-bold leading-snug tracking-tight mb-1">$0.00</h5>
                 <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">
-                  Intoductory Session
+                  Introductory Session
                 </h4>
                 <p className="text-gray-600 text-center">
                   Meet and Greet session with the owner and operator Alyssa Trindle.
