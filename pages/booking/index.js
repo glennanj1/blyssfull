@@ -197,7 +197,7 @@ export default function Booking() {
                   return (
                     <div key={b.id}>
                       <div
-                        className="relative flex justify-center mb-8 h-40v bg-bottom"
+                        className="relative flex justify-center mb-4 h-45v bg-bottom"
                       >
                         <div className="flex flex-col justify-top">
                           <div class="max-w-sm rounded overflow-hidden shadow-lg shadow-indigo-500/50">
@@ -219,9 +219,11 @@ export default function Booking() {
                                 <DateDisplay timestamp={b.date} />
                               </p>
                             </div>
-                            <div class="px-6 pt-4 pb-2">
+                            <div class="px-2 pb-10">
                               <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                                <a href={b.links[0].href}>
                                 Reciept Link
+                                </a>
                               </span>
                               <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
                                 Calendar Link
