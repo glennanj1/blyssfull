@@ -21,10 +21,9 @@ export default function Home() {
     <div className="bg-violet-300">
       <Head>
         <meta charset="utf-8" />
-        <link rel="icon" href="/logo64.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#c4b5fd" />
-        <meta property="og:image" content="/eye6.png" />
+        <meta property="og:image" content="/metaLogo.png" />
         <meta property="og:title" content="Blyssfull Magick" />
         <meta
           property="og:description"
@@ -40,7 +39,7 @@ export default function Home() {
         <link rel="apple-touch-icon" href="/BlyssfullLogo.png" />
         <link rel="manifest" href="/manifest.json" />
 
-        <link rel="icon" href="/eye6.ico" />
+        <link rel="icon" href="icon3.ico" />
       </Head>
       <Header />
       <HeroHome />
