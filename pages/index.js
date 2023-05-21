@@ -27,14 +27,11 @@ export default function Home() {
         <meta property="og:title" content="Blyssfull Magick" />
         <meta
           property="og:description"
-          content="Through a range of spiritual practices and techniques, our service can help you overcome any emotional or spiritual blockages."
+          content="Start your spiritual journey today!"
         />
         <meta property="og:type" content="website" />
 
-        <meta
-          name="Blyssfull Magick"
-          content="Try an Intro Session Today!"
-        />
+        <meta name="description" content="Try an Intro Session Today!" key="desc"/>
         <title>Blyssfull Magick</title>
         <link rel="apple-touch-icon" href="/BlyssfullLogo.png" />
         <link rel="manifest" href="/manifest.json" />
