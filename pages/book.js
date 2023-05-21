@@ -16,29 +16,35 @@ export default function Book() {
   const [loading, setLoading] = useState(false);
   const [isSlotAvailable, setIsSlotAvailable] = useState(true);
   const [promo, setPromo] = useState(false);
+  const [address, setAddress] = useState();
+  const [city, setCity] = useState();
+  const [state, setState] = useState();
+  const [zip, setZip] = useState();
+
 
   async function handleSubmit(event, router) {
     event.preventDefault();
+    debugger;
     let data = {
       id: Date.now() + Math.floor(Math.random() * 100),
       intent: "CAPTURE",
       status: "COMPLETED",
       purchase_units: [
         {
-          reference_id: "default",
+          reference_id: "promo",
           amount: {
             currency_code: "USD",
             value: "0",
           },
           shipping: {
             name: {
-              full_name: "Test Name",
+              full_name: `${session.name}`,
             },
             address: {
-              address_line_1: "123 Test Drive",
-              admin_area_2: "Test",
-              admin_area_1: "EX",
-              postal_code: "00000",
+              address_line_1: `${address}`,
+              admin_area_2: `${state}`,
+              admin_area_1: `${city}`,
+              postal_code: `${zip}`,
               country_code: "US",
             },
           },
@@ -81,6 +87,7 @@ export default function Book() {
   };
 
   useEffect(() => {
+    console.log(address);
     if (selectedDate != null && price != null) {
       setFormValid(false);
     } else {
@@ -204,6 +211,8 @@ export default function Book() {
                                 type="text"
                                 name="street-address"
                                 id="street-address"
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
                                 autoComplete="street-address"
                                 className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               />
@@ -221,6 +230,8 @@ export default function Book() {
                                 type="text"
                                 name="city"
                                 id="city"
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}
                                 autoComplete="address-level2"
                                 className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               />
@@ -238,6 +249,8 @@ export default function Book() {
                                 type="text"
                                 name="region"
                                 id="region"
+                                value={state}
+                                onChange={(e) => setState(e.target.value)}
                                 autoComplete="address-level1"
                                 className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               />
@@ -255,6 +268,8 @@ export default function Book() {
                                 type="text"
                                 name="postal-code"
                                 id="postal-code"
+                                value={zip}
+                                onChange={(e) => setZip(e.target.value)}
                                 autoComplete="postal-code"
                                 className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               />
