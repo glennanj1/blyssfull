@@ -5,11 +5,9 @@ import Paypal from "../Components/Paypal";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import CustomDatePicker from "@/Components/CustomDatePicker";
-import Example from "@/Components/ServiceSelection";
 
 export default function Book() {
   const { data: session, status } = useSession();
-  //const router = useRouter();
   const [authed, setAuthed] = useState(false);
   const [price, setPrice] = useState();
   const [desc, setDesc] = useState();
@@ -50,7 +48,6 @@ export default function Book() {
       desc: desc,
       userId: session.id,
     };
-    console.log("Data being sent to API:", data);
     try {
       const response = await fetch("/api/booking/", {
         method: "POST",
@@ -69,9 +66,8 @@ export default function Book() {
       // show success and redirect
       debugger;
       Router.push(`/booking/${savedTransaction}`);
-      console.log("Transaction saved:", savedTransaction);
     } catch (error) {
-      console.error("Error saving transaction:", error);
+      console.log("Error saving transaction:", error);
     }
   }
 
@@ -110,9 +106,6 @@ export default function Book() {
     return (
       <>
         <Header isBooking={true} />
-        {/* <h1 className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4" data-aos="zoom-y-out">
-        Book
-        </h1> */}
         <div className="md:shadow-xl lg:pt-32 pt-32 pb-12 lg:p-80 md:p-10 md:pt-40 md:pb-20 w-50">
           <div>
             <div className="md:grid md:grid-cols-3 md:gap-6">
@@ -139,58 +132,6 @@ export default function Book() {
                   <div className="overflow-hidden shadow sm:rounded-md">
                     <div className="bg-white px-4 py-5 sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
-                        {/* <label
-                              htmlFor="first-name"
-                              className="block text-sm font-medium leading-6 text-gray-900"
-                            >
-                              First name */}
-                        {/* </label>
-                            <input
-                              required
-                              type="text"
-                              name="first-name"
-                              id="first-name"
-                              autoComplete="given-name"
-                              className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            />
-                          </div>
-
-                          <div className="col-span-6 sm:col-span-3">
-                            <label
-                              htmlFor="last-name"
-                              className="block text-sm font-medium leading-6 text-gray-900"
-                            >
-                              Last name
-                            </label>
-                            <input
-                              required
-                              type="text"
-                              name="last-name"
-                              id="last-name"
-                              autoComplete="family-name"
-                              className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            />
-                          </div>
-
-                          <div className="col-span-6 sm:col-span-4">
-                            <label
-                              htmlFor="email-address"
-                              className="block text-sm font-medium leading-6 text-gray-900"
-                            >
-                              Email address
-                            </label>
-                            <input
-                              required
-                              type="text"
-                              name="email-address"
-                              id="email-address"
-                              readOnly={true}
-                              value={session.user?.email}
-                              autoComplete="email"
-                              className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            />
-                          </div> */}
-
                         <div className="col-span-6 sm:col-start-1 col-end-7">
                           <label
                             htmlFor="services"
@@ -249,8 +190,6 @@ export default function Book() {
                             </option>
                           </select>
                         </div>
-                        <Example />
-
                         {promo ? (
                           <>
                             <div className="col-span-6">
