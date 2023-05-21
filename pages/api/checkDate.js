@@ -18,7 +18,7 @@ const handler = async (req, res) => {
       res.status(405).json({ message: "Method not allowed" });
       return;
     }
-    const { reqDate } = req.body;
+    const { reqDate, reqDesc } = req.body;
     console.log('req date >> ' + reqDate);
 
     const startOfDay = new Date(reqDate);
@@ -42,31 +42,49 @@ const handler = async (req, res) => {
     // for each of the transactions
     console.log('req date >>' + reqDate); 
     const isWithinTimeSlots = transactions.some(t => {
-        console.log('desc >>>>>>>>>>>>' + t.desc);
+        console.log('desc >>>>>>>>>>>>' + t?.desc);
+        console.log('other time requested >>>>>>>>>>>>' + t.date);
         let rDate = new Date(reqDate);
+        let rDateEnd = new Date(reqDate);
         // get datetime
         let startTime = t.date;
         let endTime = new Date(t.date);
+        console.log('end time line 50 ' + endTime)
         // get the session length and break the string
         let length;
-        if (t.desc.split(' ')[0] === '30') {
+        let rDateLength;
+
+        if (t?.desc.split(' ')[0] === '30') {
             length = 31;
-        } else if (t.desc.split(' ')[0] === '1') {
+        } else if (t?.desc.split(' ')[0] === '1') {
             length = 61;
-        } else if (t.desc.split(' ')[0] === '15') {
+        } else if (t?.desc.split(' ')[0] === '15') {
             length = 16;
+        } else if (t?.desc.split(' ')[0] === 'Introductory') {
+          length = 16;
+        }
+        // code smell ugh 
+        if (reqDesc?.split(' ')[0] === '30') {
+            rDateLength = 31;
+        } else if (reqDesc?.split(' ')[0] === '1') {
+            rDateLength = 61;
+        } else if (reqDesc?.split(' ')[0] === '15') {
+            rDateLength = 16;
+        } else if (reqDesc?.split(' ')[0] === 'Introductory') {
+          rDateLength = 16;
         }
         // end time stripped desc + time
         endTime.setMinutes(endTime.getMinutes() + length);
+        rDateEnd.setMinutes(rDateEnd.getMinutes() + rDateLength);
 
         console.log('t or f > ')
-        console.log(reqDate >= startTime && reqDate <= endTime);
+        console.log(rDate >= startTime && rDate <= endTime || rDateEnd >= startTime && rDateEnd <= endTime);
         console.log('req date >>>>> ' + rDate);
         console.log('s date >>>>> ' + startTime);
         console.log('e date >>>>> ' + endTime);
 
         return (
-            rDate >= startTime && rDate <= endTime
+            (rDate >= startTime && rDate <= endTime || rDateEnd >= startTime && rDateEnd <= endTime)
         );
     });
 
