@@ -75,7 +75,8 @@ const transactionSchema = new mongoose.Schema({
   links: [linkSchema],
   date: Date,
   desc: String,
-  userId: String
-});
+  userId: String,
+
+}, {timestamps: true});
 
 module.exports = mongoose.models.Transaction || mongoose.model('Transaction', transactionSchema);
