@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import { isPast, isMonday, isWednesday, setHours, setMinutes, addDays, addHours, isAfter } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const CustomDatePicker = ({ onChange }) => {
+const CustomDatePicker = ({ onChange, disabled }) => {
   const [startDate, setStartDate] = useState(null);
 
   useEffect(() => {
@@ -125,6 +125,7 @@ const CustomDatePicker = ({ onChange }) => {
       maxTime={setHours(setMinutes(new Date(), 0), 21)}
       dateFormat="MMMM d, yyyy h:mm aa"
       placeholderText="Select a date and time"
+      disabled={disabled}
     />
   );
 };

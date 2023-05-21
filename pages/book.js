@@ -88,7 +88,9 @@ export default function Book() {
 
   useEffect(() => {
     console.log(address);
-    if (selectedDate != null && price != null) {
+    if (promo && price == null) {
+      setFormValid(false)
+    } else if (selectedDate != null && price != null) {
       setFormValid(false);
     } else {
       setFormValid(true);
@@ -281,7 +283,7 @@ export default function Book() {
                           <label className="block text-sm font-medium leading-6 text-gray-900">
                             Pick Date
                           </label>
-                          <CustomDatePicker onChange={handleDateChange} />
+                          <CustomDatePicker disabled={formValid} onChange={handleDateChange} />
                           {loading && <p>Loading availability...</p>}
                           {!isSlotAvailable && (
                             <p className="text-red-500">
