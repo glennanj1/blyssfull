@@ -20,23 +20,24 @@ export default function Home() {
   return (
     <div className="bg-violet-300">
       <Head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#c4b5fd" />
-        <meta property="og:image" content="/metaLogo.png" />
-        <meta property="og:title" content="Blyssfull Magick" />
-        <meta
-          property="og:description"
-          content="Start your spiritual journey today!"
-        />
-        <meta property="og:type" content="website" />
+      {/* <!-- Primary Meta Tags --> */}
+      <title>Blyssfull Magick</title>
+      <meta name="title" content="Blyssfull Magick"/>
+      <meta name="description" content="Try an Intro Session Today!"/>
 
-        <meta name="description" content="Try an Intro Session Today!" key="desc"/>
-        <title>Blyssfull Magick</title>
-        <link rel="apple-touch-icon" href="/BlyssfullLogo.png" />
-        <link rel="manifest" href="/manifest.json" />
+      {/* <!-- Open Graph / Facebook --/> */}
+      <meta property="og:type" content="website"/>
+      <meta property="og:url" content="https://www.blyssfullmagick.com/"/>
+      <meta property="og:title" content="Blyssfull Magick"/>
+      <meta property="og:description" content="Try an Intro Session Today!"/>
+      <meta property="og:image" content="/metaLogo.png"/>
 
-        <link rel="icon" href="icon3.ico" />
+      {/* <!-- Twitter --/> */}
+      <meta property="twitter:card" content="summary_large_image"/>
+      <meta property="twitter:url" content="https://www.blyssfullmagick.com/"/>
+      <meta property="twitter:title" content="Blyssfull Magick"/>
+      <meta property="twitter:description" content="Try an Intro Session Today!"/>
+      <meta property="twitter:image" content="/metaLogo.png"/>
       </Head>
       <Header />
       <HeroHome />
