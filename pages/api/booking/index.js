@@ -18,9 +18,12 @@ async function handler(req, res) {
       const transactionData = req.body;
       try {
         const newTransaction = new Transaction(transactionData);
+        console.log(newTransaction);
         const savedTransaction = await newTransaction.save();
+        console.log(savedTransaction);
         res.status(200).json(savedTransaction._id);
       } catch (error) {
+        console.log(error);
         res.status(500).json({ message: "Failed to save transaction", error });
       }
     } else if (req.method === "GET") {
