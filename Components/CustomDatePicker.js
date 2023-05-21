@@ -25,17 +25,42 @@ const CustomDatePicker = ({ onChange }) => {
       return startDate; // Found a valid available date
     }
   };
-
+  
+  
+  const getNextDayOfWeek = (date, dayOfWeek) => {
+    const resultDate = new Date(date.getTime());
+    resultDate.setDate(date.getDate() + ((7 + dayOfWeek - date.getDay()) % 7));
+    return resultDate;
+  };
+  
   const getAvailableDate = async () => {
-    const initialDate = new Date();
+    const initialDate = new Date(); // current date
+    let nextAvailableDate;
+  
+    // If the current day is not Monday or Wednesday, find the next Monday or Wednesday
+    if (initialDate.getDay() !== 1 && initialDate.getDay() !== 3) {
+      const nextMonday = getNextDayOfWeek(initialDate, 1);
+      const nextWednesday = getNextDayOfWeek(initialDate, 3);
+  
+      // Set the next available date to the earliest upcoming day (either next Monday or Wednesday)
+      nextAvailableDate = nextMonday < nextWednesday ? nextMonday : nextWednesday;
+    } else {
+      nextAvailableDate = initialDate;
+    }
+  
+    // Set the time to 9:00
+    nextAvailableDate = setHours(setMinutes(nextAvailableDate, 0), 9);
+  
     try {
-      const nextAvailableDate = await findNextAvailableDate(initialDate);
-      setStartDate(nextAvailableDate);
-      onChange(nextAvailableDate);
+      const nextAvailableTimeSlot = await findNextAvailableDate(nextAvailableDate);
+      setStartDate(nextAvailableTimeSlot);
+      onChange(nextAvailableTimeSlot);
     } catch (error) {
       console.error('Error finding next available date:', error);
     }
   };
+  
+  
 
   const getNextAvailableTime = (date) => {
     let nextTime = new Date(date);
