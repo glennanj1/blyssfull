@@ -1,66 +1,75 @@
-import React, { useState, useEffect } from 'react';
-import DatePicker from 'react-datepicker';
-import { isPast, isMonday, isWednesday, setHours, setMinutes, addDays, addHours, isAfter } from 'date-fns';
-import 'react-datepicker/dist/react-datepicker.css';
+import React, { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import {
+  isPast,
+  isMonday,
+  isWednesday,
+  setHours,
+  setMinutes,
+  addDays,
+  addHours,
+  isAfter,
+} from "date-fns";
+import "react-datepicker/dist/react-datepicker.css";
 
 const CustomDatePicker = ({ onChange, disabled }) => {
   const [startDate, setStartDate] = useState(null);
 
   useEffect(() => {
     getAvailableDate();
-  }, []);
+  },[]);
 
   const findNextAvailableDate = async (startDate) => {
-    console.log('start date >>>>>> ' + startDate);
+    console.log("start date >>>>>> " + startDate);
     let nextAvailableDate = getNextAvailableTime(startDate);
-    console.log('nextAvailableDate >>>>>>> ' + nextAvailableDate);
-    console.log('before the await');
+    console.log("nextAvailableDate >>>>>>> " + nextAvailableDate);
+    console.log("before the await");
     let isDateAvailable = await checkAvailability(nextAvailableDate);
-    console.log('is Date Available >> ' + isDateAvailable);
+    console.log("is Date Available >> " + isDateAvailable);
     if (isDateAvailable) {
       let newDate = getNextAvailableTime(addHours(nextAvailableDate, 1));
-      console.log('newDate >>' + newDate);
+      console.log("newDate >>" + newDate);
       return findNextAvailableDate(newDate); // Recursively call the function with the new date
     } else {
       return startDate; // Found a valid available date
     }
   };
-  
-  
+
   const getNextDayOfWeek = (date, dayOfWeek) => {
     const resultDate = new Date(date.getTime());
     resultDate.setDate(date.getDate() + ((7 + dayOfWeek - date.getDay()) % 7));
     return resultDate;
   };
-  
+
   const getAvailableDate = async () => {
     const initialDate = new Date(); // current date
     let nextAvailableDate;
-  
+
     // If the current day is not Monday or Wednesday, find the next Monday or Wednesday
     if (initialDate.getDay() !== 1 && initialDate.getDay() !== 3) {
       const nextMonday = getNextDayOfWeek(initialDate, 1);
       const nextWednesday = getNextDayOfWeek(initialDate, 3);
-  
+
       // Set the next available date to the earliest upcoming day (either next Monday or Wednesday)
-      nextAvailableDate = nextMonday < nextWednesday ? nextMonday : nextWednesday;
+      nextAvailableDate =
+        nextMonday < nextWednesday ? nextMonday : nextWednesday;
     } else {
       nextAvailableDate = initialDate;
     }
-  
+
     // Set the time to 9:00
     nextAvailableDate = setHours(setMinutes(nextAvailableDate, 0), 9);
-  
+
     try {
-      const nextAvailableTimeSlot = await findNextAvailableDate(nextAvailableDate);
+      const nextAvailableTimeSlot = await findNextAvailableDate(
+        nextAvailableDate
+      );
       setStartDate(nextAvailableTimeSlot);
       onChange(nextAvailableTimeSlot);
     } catch (error) {
-      console.error('Error finding next available date:', error);
+      console.error("Error finding next available date:", error);
     }
   };
-  
-  
 
   const getNextAvailableTime = (date) => {
     let nextTime = new Date(date);
@@ -84,7 +93,10 @@ const CustomDatePicker = ({ onChange, disabled }) => {
 
   const filterPassedTime = (time) => {
     const selectedTime = new Date(time);
-    return (!isPast(selectedTime) || isAfter(selectedTime, new Date())) && (isMonday(time) || isWednesday(time));
+    return (
+      (!isPast(selectedTime) || isAfter(selectedTime, new Date())) &&
+      (isMonday(time) || isWednesday(time))
+    );
   };
 
   const filterPassedDateTime = (time) => {
@@ -97,7 +109,8 @@ const CustomDatePicker = ({ onChange, disabled }) => {
   };
 
   const handleDateChange = (date) => {
-    if (date) {
+    if (date && !isPast(date)) {
+      // Check to make sure the date isn't in the past
       const hours = date.getHours();
       const minutes = date.getMinutes();
 
@@ -131,7 +144,6 @@ const CustomDatePicker = ({ onChange, disabled }) => {
 };
 
 export default CustomDatePicker;
-
 
 async function checkAvailability(reqDate, reqDesc) {
   const response = await fetch("/api/checkDate", {
