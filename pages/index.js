@@ -23,7 +23,7 @@ export default function Home() {
       {/* <!-- Primary Meta Tags --> */}
       <title>Blyssfull Magick</title>
       <meta name="title" content="Blyssfull Magick"></meta>
-      <meta name="description" content="Try an Intro Session Today!"></meta>
+      <meta name="description" content="Try an Introductory Session Today! Tarot Readings, Oracle Readings, and Reiki Sessions all remote."></meta>
 
       {/* <!-- Open Graph / Facebook --/> */}
       <meta property="og:type" content="website"></meta>
