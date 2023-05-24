@@ -32,7 +32,7 @@ async function saveTransaction(details, date, desc, router, userId) {
 const Paypal = ({ cost, isDisabled, date, desc, userId }) => {
   const router = useRouter();
   const CLIENT_ID =
-    "AWWEZ4lJGhoUtEyfTwJ7XWTS4QUrlw9iUvekZHb5GAzAVNFtgR6_Y-NfAaAt0ADM0xRO7_C-ZRioNVFO";
+    "AXumtkfp-C-NCsQkETFtQ6QX9UAY83xZp8CnVfSJb-fDu9WYj2hZKlF6Ojo54SGnHnNm3l1ugXag7QUr";
   const createOrder = (data, actions) => {
     return actions.order.create({
       purchase_units: [
