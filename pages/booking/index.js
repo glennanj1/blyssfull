@@ -221,7 +221,7 @@ export default function Booking() {
                             <div class="px-2 pb-10">
                               <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
                                 <a href={b.links[0]?.href}>
-                                Reciept Link
+                                Receipt Link
                                 </a>
                               </span>
                               <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
