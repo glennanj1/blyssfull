@@ -110,7 +110,7 @@ export default function Modal({ isOpen, initiateReset, navItems, signedIn }) {
                             reset();
                           }}
                         >
-                          All Bookings
+                          My Bookings
                         </button>
                       </Link>
                       <Link href='/api/auth/signout' >
