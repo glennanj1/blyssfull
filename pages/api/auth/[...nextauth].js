@@ -43,12 +43,13 @@ export const authOptions = {
         console.log("newUser undefined >>>>>" + User.newUser);
         await mongoose.connection.db
           .collection("users")
-          .updateOne({ _id: new mongoose.Types.ObjectId(user.id) }, { $set: { newUser: true } });
+          .updateOne({ _id: new mongoose.Types.ObjectId(user.id) }, { $set: { newUser: true, introSessionUsed: false } });
       } 
       session.status = user.status;
       session.id = user.id;
       session.newUser = user.newUser;
-      session.name = `${user.firstName} ${user.lastName}`
+      session.name = `${user.firstName} ${user.lastName}`;
+      session.introSessionUsed = user.introSessionUsed;
       return session;
     },
   },

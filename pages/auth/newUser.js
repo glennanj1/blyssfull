@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useSession, useEffect } from "next-auth/react";
-import Header from "@/Components/Header";
-import Footer from "@/Components/Footer";
 import { useRouter } from "next/router";
 
 export default function Welcome() {
@@ -46,7 +44,6 @@ export default function Welcome() {
   if (authed) {
     return (
       <>
-        <Header isBooking={true} />
         <div class="md:shadow-xl pt-32 pb-12 md:p-80 md:pt-40 md:pb-20 w-50">
           <div>
             <div class="md:grid md:grid-cols-3 md:gap-6">
@@ -123,7 +120,6 @@ export default function Welcome() {
             </div>
           </div>
         </div>
-        <Footer />
       </>
     );
   }
@@ -141,7 +137,6 @@ export default function Welcome() {
 
   return (
     <>
-      <Header isBooking={true} />
       <div class="animate-pulse md:shadow-xl pt-32 pb-12 md:p-80 md:pt-40 md:pb-20 w-50">
         <div>
           <div class="md:grid md:grid-cols-3 md:gap-6">
@@ -172,7 +167,6 @@ export default function Welcome() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

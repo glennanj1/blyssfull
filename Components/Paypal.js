@@ -47,8 +47,6 @@ const Paypal = ({ cost, isDisabled, date, desc, userId }) => {
 
   const onApprove = (data, actions) => {
     return actions.order.capture().then((details) => {
-        console.log(date);
-        console.log(desc);
       saveTransaction(details, date, desc, router, userId);
       console.log("Payment Approved:", details);
     });

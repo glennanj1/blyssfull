@@ -76,6 +76,14 @@ async function handler(req, res) {
           }
         })
 
+        if (transactionData.desc === 'Introductory Session' && !session.introSessionUsed) {
+          await mongoose.connection.db
+            .collection("users")
+            .updateOne({ _id: new mongoose.Types.ObjectId(session.id) }, { $set: { introSessionUsed: true } });
+        } else if (transactionData.desc === 'Introductory Session' && session.introSessionUsed) {
+          return;
+        }
+
         // end time stripped desc + time
         endTime.setMinutes(endTime.getMinutes() + length);
 
