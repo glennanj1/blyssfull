@@ -1,30 +1,29 @@
+import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Router from "next/router";
-import { useState, useEffect } from "react";
-import Paypal from "../Components/Paypal";
+import CustomDatePicker from "@/Components/CustomDatePicker";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
-import CustomDatePicker from "@/Components/CustomDatePicker";
+import Paypal from "../Components/Paypal";
 
 export default function Book() {
   const { data: session, status } = useSession();
   const [authed, setAuthed] = useState(false);
-  const [price, setPrice] = useState();
-  const [desc, setDesc] = useState();
+  const [price, setPrice] = useState(null);
+  const [desc, setDesc] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [formValid, setFormValid] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [isSlotAvailable, setIsSlotAvailable] = useState(true);
+  const [isSlotAvailable, setIsSlotAvailable] = useState(false);
   const [promo, setPromo] = useState(false);
-  const [address, setAddress] = useState();
-  const [city, setCity] = useState();
-  const [state, setState] = useState();
-  const [zip, setZip] = useState();
-
-
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
 
   async function handleSubmit(event, router) {
     event.preventDefault();
+
     let data = {
       id: Date.now() + Math.floor(Math.random() * 100),
       intent: "CAPTURE",
@@ -86,10 +85,9 @@ export default function Book() {
   };
 
   useEffect(() => {
-    console.log(address);
-    if (promo && price == null) {
-      setFormValid(false)
-    } else if (selectedDate != null && price != null) {
+    if (promo && price === null) {
+      setFormValid(false);
+    } else if (selectedDate !== null && price !== null) {
       setFormValid(false);
     } else {
       setFormValid(true);
@@ -101,9 +99,7 @@ export default function Book() {
     setDesc(e.target[e.target.selectedIndex].text);
     if (e.target[e.target.selectedIndex].text === "Introductory Session") {
       setPromo(true);
-    } else if (
-      e.target[e.target.selectedIndex].text !== "Introductory Session"
-    ) {
+    } else if (e.target[e.target.selectedIndex].text !== "Introductory Session") {
       setPromo(false);
     } else {
       setPromo(false);
@@ -136,7 +132,7 @@ export default function Book() {
                 </div>
               </div>
               <div className="mt-5 md:col-span-2 md:mt-0">
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="overflow-hidden shadow sm:rounded-md">
                     <div className="bg-white px-4 py-5 sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
@@ -189,12 +185,6 @@ export default function Book() {
                               label="15 Minute Oracle Reading"
                             >
                               15 Minute Oracle Reading
-                            </option>
-                            <option
-                              value="100000.00"
-                              label="15 Minute Oracle Reading"
-                            >
-                              15 Minute Special Reading
                             </option>
                           </select>
                         </div>
@@ -282,7 +272,11 @@ export default function Book() {
                           <label className="block text-sm font-medium leading-6 text-gray-900">
                             Pick Date
                           </label>
-                          <CustomDatePicker disabled={formValid} onChange={handleDateChange} />
+                          <CustomDatePicker
+                            disabled={formValid}
+                            onChange={handleDateChange}
+                            serviceSelected={desc !== null}
+                          />
                           {loading && <p>Loading availability...</p>}
                           {!isSlotAvailable && (
                             <p className="text-red-500">
@@ -295,16 +289,16 @@ export default function Book() {
                       <div className="bg-gray-50 mt-5 px-4 py-3 text-right sm:px-6">
                         {promo ? (
                           <button
+                            disabled={!isSlotAvailable}
                             type="submit"
-                            onClick={handleSubmit}
-                            className="group relative flex w-full justify-center rounded-md bg-purple-700 py-2 px-3 text-sm font-semibold text-white hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="disabled:bg-purple-100 group relative flex w-full justify-center rounded-md bg-purple-700 py-2 px-3 text-sm font-semibold text-white hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             aria-label="Subscribe"
                           >
                             Book
                           </button>
                         ) : (
                           <Paypal
-                            isDisabled={formValid}
+                            isDisabled={formValid || !isSlotAvailable}
                             cost={price}
                             date={selectedDate}
                             desc={desc}
@@ -394,7 +388,6 @@ async function checkAvailability(reqDate, reqDesc) {
     const data = await response.json();
     return data.isWithinTimeSlots;
   } else {
-    // display new error instead maybe?
     console.log("Error checking time slot");
   }
 }

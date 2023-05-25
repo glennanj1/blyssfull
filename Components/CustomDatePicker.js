@@ -12,12 +12,16 @@ import {
 } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 
-const CustomDatePicker = ({ onChange, disabled }) => {
+const CustomDatePicker = ({ onChange, disabled, serviceSelected }) => {
   const [startDate, setStartDate] = useState(null);
 
   useEffect(() => {
-    getAvailableDate();
-  },[]);
+    if (serviceSelected) {
+      getAvailableDate();
+    } else {
+      setStartDate(null); // Reset the date when service is not selected
+    }
+  }, [serviceSelected]);
 
   const findNextAvailableDate = async (startDate) => {
     console.log("start date >>>>>> " + startDate);
