@@ -14,7 +14,7 @@ export default function Book() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [formValid, setFormValid] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [isSlotAvailable, setIsSlotAvailable] = useState(false);
+  const [isSlotAvailable, setIsSlotAvailable] = useState(true);
   const [promo, setPromo] = useState(false);
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
