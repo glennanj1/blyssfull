@@ -95,13 +95,18 @@ export default function Booking() {
                       </div>
                       <div class="px-6 pt-4 pb-2">
                         <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                          <a href={data.data.links[0]?.href}>
+                          <a target="_blank" href={data.data.links[0]?.href}>
                             Receipt Link
                           </a>
                         </span>
                         <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                          <a href={data.data.links[0]?.href}>
+                          <a target="_blank" href={data.data?.calendarLink}>
                             Calendar Link
+                          </a>
+                        </span>
+                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                          <a target="_blank" href={data.data?.meetLink}>
+                            Meet Link
                           </a>
                         </span>
                       </div>

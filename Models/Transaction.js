@@ -76,6 +76,8 @@ const transactionSchema = new mongoose.Schema({
   date: Date,
   desc: String,
   userId: String,
+  meetLink: String,
+  calendarLink: String
 
 }, {timestamps: true});
 

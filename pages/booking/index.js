@@ -62,9 +62,7 @@ export default function Booking() {
               <div className="pt-32 pb-12 md:pt-40 md:pb-20">
                 {/* Hero image */}
                 <div>
-                  <div
-                    className="relative flex justify-center mb-8 h-40v bg-bottom"
-                  >
+                  <div className="relative flex justify-center mb-8 h-40v bg-bottom">
                     <div className="flex flex-col justify-top">
                       <div class="max-w-sm rounded overflow-hidden shadow-lg shadow-indigo-500/50">
                         {/* <img class="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains"> */}
@@ -195,9 +193,7 @@ export default function Booking() {
                 {data.data.map((b) => {
                   return (
                     <div key={b.id}>
-                      <div
-                        className="relative flex justify-center mb-4 h-45v bg-bottom"
-                      >
+                      <div className="relative flex justify-center mb-4 h-45v bg-bottom">
                         <div className="flex flex-col justify-top">
                           <div class="max-w-sm rounded overflow-hidden shadow-lg shadow-indigo-500/50">
                             {/* <img class="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains"> */}
@@ -220,12 +216,17 @@ export default function Booking() {
                             </div>
                             <div class="px-2 pb-10">
                               <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                                <a href={b.links[0]?.href}>
-                                Receipt Link
+                                <a target="_blank" href={b.links[0]?.href}>Receipt Link</a>
+                              </span>
+                              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                                <a target="_blank" href={b?.calendarLink}>
+                                  Calendar Link
                                 </a>
                               </span>
                               <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                                Calendar Link
+                                <a target="_blank" href={b?.meetLink}>
+                                  Meet Link
+                                </a>
                               </span>
                             </div>
                           </div>

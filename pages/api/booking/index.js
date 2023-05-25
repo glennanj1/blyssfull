@@ -52,29 +52,26 @@ async function handler(req, res) {
     if (req.method === "POST") {
       const transactionData = req.body;
       try {
-        const newTransaction = new Transaction(transactionData);
-        console.log(newTransaction);
-        const savedTransaction = await newTransaction.save();
-        console.log(savedTransaction);
-        let startTime = savedTransaction.date;
-        let endTime = new Date(savedTransaction.date);
+        console.log(transactionData);
+        let startTime = transactionData.date;
+        let endTime = new Date(transactionData.date);
         console.log('end time line 50 ' + endTime)
         // get the session length and break the string
         let length;
         let summary;
 
-        if (newTransaction?.desc.split(' ')[0] === '30') {
-            length = 31;
-        } else if (newTransaction?.desc.split(' ')[0] === '1') {
-            length = 61;
-        } else if (newTransaction?.desc.split(' ')[0] === '15') {
-            length = 16;
-        } else if (newTransaction?.desc.split(' ')[0] === 'Introductory') {
-          length = 16;
+        if (transactionData?.desc.split(' ')[0] === '30') {
+            length = 30;
+        } else if (transactionData?.desc.split(' ')[0] === '1') {
+            length = 60;
+        } else if (transactionData?.desc.split(' ')[0] === '15') {
+            length = 15;
+        } else if (transactionData?.desc.split(' ')[0] === 'Introductory') {
+          length = 15;
         }
 
         services.map(e => {
-          if (e.description === newTransaction.desc) {
+          if (e.description === transactionData.desc) {
             summary = e.summary;
           }
         })
@@ -82,7 +79,14 @@ async function handler(req, res) {
         // end time stripped desc + time
         endTime.setMinutes(endTime.getMinutes() + length);
 
-        await calendarCall(startTime, endTime, summary, newTransaction.desc, session.user.email)
+        const { meetLink, calendarLink } = await calendarCall(startTime, endTime, summary, transactionData.desc, session.user.email);
+        // Include meetLink and calendarLink in new transaction
+        transactionData.meetLink = meetLink;
+        transactionData.calendarLink = calendarLink;
+
+        const newTransaction = new Transaction(transactionData);
+        const savedTransaction = await newTransaction.save();
+
         res.status(200).json(savedTransaction._id);
       } catch (error) {
         console.log(error);
