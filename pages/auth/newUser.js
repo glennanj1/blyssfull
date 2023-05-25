@@ -18,7 +18,6 @@ export default function Welcome() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    debugger;
     fetch("/api/newuser/", {
       method: "POST",
       body: JSON.stringify({
@@ -27,14 +26,14 @@ export default function Welcome() {
       })
     })
       .then((res) => {
-        debugger;
+        
         if (res.ok) {
           console.log("res ok");
-          debugger;
+          
           reloadSession();
           router.push("/");
         } else {
-          debugger;
+          
           console.log("Error please report email john");
         }
       })

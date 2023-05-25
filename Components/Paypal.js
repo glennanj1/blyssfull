@@ -21,7 +21,6 @@ async function saveTransaction(details, date, desc, router, userId) {
 
     const savedTransaction = await response.json();
     // show success and redirect
-    debugger;
     router.push(`/booking/${savedTransaction}`)
     console.log("Transaction saved:", savedTransaction);
   } catch (error) {

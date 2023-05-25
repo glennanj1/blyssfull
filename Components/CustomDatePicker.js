@@ -156,7 +156,6 @@ async function checkAvailability(reqDate, reqDesc) {
 
   if (response.ok) {
     const data = await response.json();
-    debugger;
     return data.isWithinTimeSlots;
   } else {
     // display new error instead maybe?

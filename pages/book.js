@@ -25,7 +25,6 @@ export default function Book() {
 
   async function handleSubmit(event, router) {
     event.preventDefault();
-    debugger;
     let data = {
       id: Date.now() + Math.floor(Math.random() * 100),
       intent: "CAPTURE",
@@ -71,7 +70,6 @@ export default function Book() {
 
       const savedTransaction = await response.json();
       // show success and redirect
-      debugger;
       Router.push(`/booking/${savedTransaction}`);
     } catch (error) {
       console.log("Error saving transaction:", error);

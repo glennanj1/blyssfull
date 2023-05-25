@@ -21,7 +21,6 @@ export default function Booking() {
   if (error) return <div>{error.message}</div>;
   if (!data) return <div>Loading...</div>;
   if (data) {
-    debugger;
     if (data.data.length <= 0) {
       return (
         <>

@@ -16,7 +16,6 @@ export default function Signin({ csrfToken, providers }) {
     e.preventDefault();
     console.log("button clicked >> + button state " + submitDisabled);
     setSubmitDisabled(true);
-    debugger;
     fetch('/api/auth/signin/email/', {
       method: 'POST',
       body: JSON.stringify({csrfToken, email}),
