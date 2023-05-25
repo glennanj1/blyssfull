@@ -23,17 +23,15 @@ export default function Welcome() {
       body: JSON.stringify({
         firstName: firstName,
         lastName: lastName,
-      })
+      }),
     })
       .then((res) => {
-        
         if (res.ok) {
           console.log("res ok");
-          
+
           reloadSession();
           router.push("/");
         } else {
-          
           console.log("Error please report email john");
         }
       })
@@ -131,7 +129,7 @@ export default function Welcome() {
   }
   if (status === "authenticated") {
     if (session.newUser === false) {
-      router.push('/')
+      router.push("/");
     }
     setTimeout(() => {
       setAuthed(true);
