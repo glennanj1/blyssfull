@@ -100,7 +100,7 @@ function HeroHome() {
                 </div>
                 <div>
                   <Link
-                    className="btn shadow-slate-900/50 text-white bg-slate-900 hover:bg-blue-700 w-full sm:w-auto sm:ml-4"
+                    className="btn shadow-slate-900/50 text-white bg-slate-900 hover:bg-slate-700 w-full sm:w-auto sm:ml-4"
                     href="/learnmore"
                   >
                     Learn more
@@ -154,9 +154,9 @@ function HeroHome() {
               data-aos-delay="450"
               style={{ backgroundImage: "url(/tarrot.png)" }}
             >
-              <div className="flex flex-col justify-center">
+              <div className="flex flex-col justify-center ">
                 {/* <img className="mx-auto" src="https://images.unsplash.com/photo-1597589827317-4c6d6e0a90bd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" width="768" height="400" alt="Hero" /> */}
-                <svg
+                {/* <svg
                   className="absolute inset-0 max-w-full mx-auto md:max-w-none h-auto"
                   width="768"
                   height="400"
@@ -221,7 +221,14 @@ function HeroHome() {
                       <use fill="url(#hero-ill-e)" xlinkHref="#hero-ill-d" />
                     </g>
                   </g>
-                </svg>
+                </svg> */}
+                <img
+                  alt="metaLogo"
+                  width="400"
+                  height="400"
+                  className="absolute inset-0 max-w-full mx-auto md:max-w-none h-auto"
+                  src="/metaLogo.png"
+                />
               </div>
               <button
                 className="absolute top-full flex items-center transform -translate-y-1/2 bg-white rounded-full font-medium group p-4 shadow-lg"
