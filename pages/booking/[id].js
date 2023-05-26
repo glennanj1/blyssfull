@@ -85,13 +85,13 @@ export default function Booking() {
                       <DateDisplay timestamp={data.data.date} />
                     </p>
                     <div className="mt-6 flex flex-wrap justify-center md:justify-start space-x-3">
-                      <a
+                      {/* <a
                         target="_blank"
                         href={data.data.links[0]?.href}
                         className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mb-2"
                       >
                         Receipt Link
-                      </a>
+                      </a> */}
                       <a
                         target="_blank"
                         href={data.data?.calendarLink}

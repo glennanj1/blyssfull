@@ -80,17 +80,17 @@ export default function Booking() {
                             Learn More
                           </span> */}
                           <Link
-                href="/book/"
-                className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >
-                Book now
-              </Link>
-              <Link
-                href="/learnmore"
-                className="text-sm font-semibold leading-6 text-white"
-              >
-                Learn more <span aria-hidden="true">→</span>
-              </Link>
+                            href="/book/"
+                            className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                          >
+                            Book now
+                          </Link>
+                          <Link
+                            href="/learnmore"
+                            className="text-sm font-semibold leading-6 text-white"
+                          >
+                            Learn more <span aria-hidden="true">→</span>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -106,7 +106,11 @@ export default function Booking() {
     return (
       <>
         <Header />
-        <Popup type="info" message="Please be sure to check spam folder for invites." subject="Info" />
+        <Popup
+          type="info"
+          message="Please be sure to check spam folder for invites."
+          subject="Info"
+        />
         <section className="relative">
           {/* Illustration behind hero content */}
           {/* <div
@@ -230,7 +234,9 @@ export default function Booking() {
                             </div>
                             <div class="px-2 pb-10">
                               <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                                <a target="_blank" href={b.links[0]?.href}>Receipt Link</a>
+                                {/* <a target="_blank" href={b.links[0]?.href}>
+                                  Receipt Link
+                                </a> */}
                               </span>
                               <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
                                 <a target="_blank" href={b?.calendarLink}>
