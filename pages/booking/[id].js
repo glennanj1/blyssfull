@@ -5,6 +5,7 @@ import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import DateDisplay from "@/Components/DateDisplay";
 import TimeDisplay from "@/Components/TimeDisplay";
+import Popup from "@/Components/PopUp";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -60,56 +61,51 @@ export default function Booking() {
             </svg>
           </div>
 
-          <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            {/* Hero content */}
+          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-20 mx-auto">
+            <Popup type="success" message="Successful booking!" subject="Success" />
             <div className="pt-32 pb-12 md:pt-40 md:pb-20">
-              {/* Hero image */}
-              <div>
-                <div
-                  className="relative flex justify-center mb-8 h-50v bg-bottom"
-                >
-                  <div className="flex flex-col justify-top">
-                    <div class="max-w-sm rounded overflow-hidden shadow-lg shadow-indigo-500/50">
-                      {/* <img class="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains"> */}
-                      <div class="px-6 py-2">
-                        <div class="font-bold text-xl mb-2">
-                          Thanks for Booking!
-                        </div>
-                      </div>
-                      <div class="px-6 py-2">
-                        <p class="text-purple-700 break-words text-xl md:text-3xl font-extrabold leading-tighter tracking-tighter mb-4">
-                          {data.data.desc}
-                        </p>
-                      </div>
-                      <div class="px-6 py-2">
-                        <div class="font-bold text-xl mb-2">Time:</div>
-                        <p class="text-gray-700 text-base">
-                          <TimeDisplay timestamp={data.data.date} />
-                        </p>
-                      </div>
-                      <div class="px-6 py-4">
-                        <div class="font-bold text-xl mb-2">Date:</div>
-                        <p class="text-gray-700 text-base">
-                          <DateDisplay timestamp={data.data.date} />
-                        </p>
-                      </div>
-                      <div class="px-6 pt-4 pb-2">
-                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                          <a target="_blank" href={data.data.links[0]?.href}>
-                            Receipt Link
-                          </a>
-                        </span>
-                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                          <a target="_blank" href={data.data?.calendarLink}>
-                            Calendar Link
-                          </a>
-                        </span>
-                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                          <a target="_blank" href={data.data?.meetLink}>
-                            Meet Link
-                          </a>
-                        </span>
-                      </div>
+              <div className="w-full max-w-2xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden md:flex md:items-center md:justify-center">
+                <div className="md:flex-shrink-0">
+                  <div className="p-8">
+                    <div className="font-bold text-xl mb-2">
+                      Thanks for Booking!
+                    </div>
+                    <div className="font-bold text-xl text-red-300 mb-2">
+                      Please be sure to check your spam folder for email invites.
+                    </div>
+                    <div className="text-purple-700 break-words text-xl md:text-3xl font-extrabold leading-tighter tracking-tighter mb-4">
+                      {data.data.desc}
+                    </div>
+                    <div className="font-bold text-xl mb-2">Time:</div>
+                    <p className="text-gray-700 text-base">
+                      <TimeDisplay timestamp={data.data.date} />
+                    </p>
+                    <div className="font-bold text-xl mb-2">Date:</div>
+                    <p className="text-gray-700 text-base">
+                      <DateDisplay timestamp={data.data.date} />
+                    </p>
+                    <div className="mt-6 flex flex-wrap justify-center md:justify-start space-x-3">
+                      <a
+                        target="_blank"
+                        href={data.data.links[0]?.href}
+                        className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mb-2"
+                      >
+                        Receipt Link
+                      </a>
+                      <a
+                        target="_blank"
+                        href={data.data?.calendarLink}
+                        className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mb-2"
+                      >
+                        Calendar Link
+                      </a>
+                      <a
+                        target="_blank"
+                        href={data.data?.meetLink}
+                        className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mb-2"
+                      >
+                        Meet Link
+                      </a>
                     </div>
                   </div>
                 </div>

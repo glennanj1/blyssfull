@@ -5,7 +5,8 @@ import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import TimeDisplay from "@/Components/TimeDisplay";
 import DateDisplay from "@/Components/DateDisplay";
-
+import Popup from "@/Components/PopUp";
+import Link from "next/link";
 const fetcher = async (url) => {
   const res = await fetch(url);
   const data = await res.json();
@@ -72,12 +73,24 @@ export default function Booking() {
                           </div>
                         </div>
                         <div class="px-6 pt-4 pb-2">
-                          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                          {/* <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
                             Book Now
                           </span>
                           <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
                             Learn More
-                          </span>
+                          </span> */}
+                          <Link
+                href="/book/"
+                className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                Book now
+              </Link>
+              <Link
+                href="/learnmore"
+                className="text-sm font-semibold leading-6 text-white"
+              >
+                Learn more <span aria-hidden="true">→</span>
+              </Link>
                         </div>
                       </div>
                     </div>
@@ -93,6 +106,7 @@ export default function Booking() {
     return (
       <>
         <Header />
+        <Popup type="info" message="Please be sure to check spam folder for invites." subject="Info" />
         <section className="relative">
           {/* Illustration behind hero content */}
           {/* <div
