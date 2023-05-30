@@ -200,8 +200,8 @@ export default function Book() {
                                 type="text"
                                 name="street-address"
                                 id="street-address"
-                                value={address}
-                                onChange={(e) => setAddress(e.target.value)}
+                                value={addressData.address}
+                                onChange={(e) => setAddressData({address: e.target.value})}
                                 autoComplete="street-address"
                                 className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               />
@@ -219,8 +219,8 @@ export default function Book() {
                                 type="text"
                                 name="city"
                                 id="city"
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
+                                value={setAddressData.city}
+                                onChange={(e) => setAddressData({city: e.target.value})}
                                 autoComplete="address-level2"
                                 className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               />
@@ -238,8 +238,8 @@ export default function Book() {
                                 type="text"
                                 name="region"
                                 id="region"
-                                value={state}
-                                onChange={(e) => setState(e.target.value)}
+                                value={setAddressData.state}
+                                onChange={(e) => setAddressData({state: e.target.value})}
                                 autoComplete="address-level1"
                                 className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               />
@@ -257,8 +257,8 @@ export default function Book() {
                                 type="text"
                                 name="postal-code"
                                 id="postal-code"
-                                value={zip}
-                                onChange={(e) => setZip(e.target.value)}
+                                value={setAddressData.zip}
+                                onChange={(e) => setAddressData({zip: e.target.value})}
                                 autoComplete="postal-code"
                                 className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               />
