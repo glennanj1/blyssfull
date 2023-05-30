@@ -12,23 +12,23 @@ import {
 } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 
-const CustomDatePicker = ({ onChange, disabled, serviceSelected }) => {
+const CustomDatePicker = ({ onChange, disabled, serviceSelected, desc }) => {
   const [startDate, setStartDate] = useState(null);
 
   useEffect(() => {
     if (serviceSelected) {
       getAvailableDate();
     } else {
-      setStartDate(null); // Reset the date when service is not selected
+      setStartDate(); // Reset the date when service is not selected
     }
   }, [serviceSelected]);
 
-  const findNextAvailableDate = async (startDate) => {
+  const findNextAvailableDate = async (startDate, desc) => {
     console.log("start date >>>>>> " + startDate);
     let nextAvailableDate = getNextAvailableTime(startDate);
     console.log("nextAvailableDate >>>>>>> " + nextAvailableDate);
     console.log("before the await");
-    let isDateAvailable = await checkAvailability(nextAvailableDate);
+    let isDateAvailable = await checkAvailability(nextAvailableDate, desc);
     console.log("is Date Available >> " + isDateAvailable);
     if (isDateAvailable) {
       let newDate = getNextAvailableTime(addHours(nextAvailableDate, 1));
@@ -65,9 +65,7 @@ const CustomDatePicker = ({ onChange, disabled, serviceSelected }) => {
     nextAvailableDate = setHours(setMinutes(nextAvailableDate, 0), 9);
 
     try {
-      const nextAvailableTimeSlot = await findNextAvailableDate(
-        nextAvailableDate
-      );
+      const nextAvailableTimeSlot = await findNextAvailableDate(nextAvailableDate, desc);
       setStartDate(nextAvailableTimeSlot);
       onChange(nextAvailableTimeSlot);
     } catch (error) {

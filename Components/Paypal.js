@@ -1,9 +1,9 @@
 import React from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 
 async function saveTransaction(details, date, desc, router, userId) {
-  let data = {...details, date: date, desc: desc, userId: userId}
+  let data = { ...details, date: date, desc: desc, userId: userId };
   console.log("Data being sent to API:", data);
   try {
     const response = await fetch("/api/booking/", {
@@ -21,7 +21,7 @@ async function saveTransaction(details, date, desc, router, userId) {
 
     const savedTransaction = await response.json();
     // show success and redirect
-    router.push(`/booking/${savedTransaction}`)
+    router.push(`/booking/${savedTransaction}`);
     console.log("Transaction saved:", savedTransaction);
   } catch (error) {
     console.error("Error saving transaction:", error);
@@ -30,13 +30,14 @@ async function saveTransaction(details, date, desc, router, userId) {
 
 const Paypal = ({ cost, isDisabled, date, desc, userId }) => {
   const router = useRouter();
-  const CLIENT_ID = 'AYGpcW1iisaJr2YYEhQrifL8EpCiZxFfse18OlAmcKBedXcfw7UuHLG24n0MriiINDigKL9apnsEeJZl';
+  const CLIENT_ID =
+    "AYGpcW1iisaJr2YYEhQrifL8EpCiZxFfse18OlAmcKBedXcfw7UuHLG24n0MriiINDigKL9apnsEeJZl";
   const createOrder = (data, actions) => {
     return actions.order.create({
       purchase_units: [
         {
           amount: {
-            currency_code: 'USD',
+            currency_code: "USD",
             value: cost,
           },
         },
@@ -57,7 +58,14 @@ const Paypal = ({ cost, isDisabled, date, desc, userId }) => {
 
   return (
     <div style={{ position: "relative" }}>
-      <PayPalScriptProvider options={{ "client-id": CLIENT_ID }}>
+      <PayPalScriptProvider
+        options={{
+          "client-id": CLIENT_ID,
+          components: "buttons,funding-eligibility",
+          "enable-funding": "venmo",
+        }}
+      >
+        {" "}
         <PayPalButtons
           style={{
             layout: "horizontal",

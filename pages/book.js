@@ -159,7 +159,7 @@ export default function Book() {
                             </option>
                             )}
                             <option
-                              value="111.00"
+                              value="1.00"
                               label="1 Hour Distance Reiki Session"
                             >
                               1 Hour Distance Reiki Session
@@ -278,6 +278,7 @@ export default function Book() {
                             disabled={formValid}
                             onChange={handleDateChange}
                             serviceSelected={desc !== null}
+                            desc={desc}
                           />
                           {loading && <p>Loading availability...</p>}
                           {!isSlotAvailable && (
