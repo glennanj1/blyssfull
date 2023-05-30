@@ -16,15 +16,12 @@ export default function Book() {
   const [loading, setLoading] = useState(false);
   const [isSlotAvailable, setIsSlotAvailable] = useState(true);
   const [promo, setPromo] = useState(false);
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zip, setZip] = useState("");
+  const [addressData, setAddressData] = useState({address: '', city: '', state: '', zip: ''});
 
-  async function handleSubmit(event, router) {
+  const handleSubmit = async (event, router) => {
     event.preventDefault();
 
-    let data = {
+    const data = {
       id: Date.now() + Math.floor(Math.random() * 100),
       intent: "CAPTURE",
       status: "COMPLETED",
@@ -40,10 +37,10 @@ export default function Book() {
               full_name: `${session.name}`,
             },
             address: {
-              address_line_1: `${address}`,
-              admin_area_2: `${state}`,
-              admin_area_1: `${city}`,
-              postal_code: `${zip}`,
+              address_line_1: `${addressData.address}`,
+              admin_area_2: `${addressData.state}`,
+              admin_area_1: `${addressData.city}`,
+              postal_code: `${addressData.zip}`,
               country_code: "US",
             },
           },
@@ -53,6 +50,7 @@ export default function Book() {
       desc: desc,
       userId: session.id,
     };
+
     try {
       const response = await fetch("/api/booking/", {
         method: "POST",
@@ -64,11 +62,9 @@ export default function Book() {
 
       if (!response.ok) {
         throw new Error("Failed to save transaction");
-        // show a modal that the transaction didn't go through and to try again
       }
 
       const savedTransaction = await response.json();
-      // show success and redirect
       Router.push(`/booking/${savedTransaction}`);
     } catch (error) {
       console.log("Error saving transaction:", error);
@@ -78,7 +74,6 @@ export default function Book() {
   const handleDateChange = async (date) => {
     setSelectedDate(date);
     setLoading(true);
-    // Call your backend API to check if the selected date and time slot is available
     const isAvailable = await checkAvailability(date, desc);
     setIsSlotAvailable(!isAvailable);
     setLoading(false);
@@ -105,6 +100,7 @@ export default function Book() {
       setPromo(false);
     }
   };
+
 
   if (authed) {
     return (
@@ -278,7 +274,6 @@ export default function Book() {
                             disabled={formValid}
                             onChange={handleDateChange}
                             serviceSelected={desc !== null}
-                            desc={desc}
                           />
                           {loading && <p>Loading availability...</p>}
                           {!isSlotAvailable && (

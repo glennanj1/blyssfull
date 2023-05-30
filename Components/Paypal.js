@@ -1,9 +1,10 @@
 import React from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
+
 
 async function saveTransaction(details, date, desc, router, userId) {
-  let data = { ...details, date: date, desc: desc, userId: userId };
+  let data = {...details, date: date, desc: desc, userId: userId}
   console.log("Data being sent to API:", data);
   try {
     const response = await fetch("/api/booking/", {
@@ -21,7 +22,7 @@ async function saveTransaction(details, date, desc, router, userId) {
 
     const savedTransaction = await response.json();
     // show success and redirect
-    router.push(`/booking/${savedTransaction}`);
+    router.push(`/booking/${savedTransaction}`)
     console.log("Transaction saved:", savedTransaction);
   } catch (error) {
     console.error("Error saving transaction:", error);
@@ -37,7 +38,7 @@ const Paypal = ({ cost, isDisabled, date, desc, userId }) => {
       purchase_units: [
         {
           amount: {
-            currency_code: "USD",
+            currency_code: 'USD',
             value: cost,
           },
         },
@@ -58,14 +59,13 @@ const Paypal = ({ cost, isDisabled, date, desc, userId }) => {
 
   return (
     <div style={{ position: "relative" }}>
-      <PayPalScriptProvider
-        options={{
-          "client-id": CLIENT_ID,
+      <PayPalScriptProvider options={
+        { 
+          "client-id": CLIENT_ID, 
           components: "buttons,funding-eligibility",
-          "enable-funding": "venmo",
-        }}
-      >
-        {" "}
+				  "enable-funding": "venmo",
+        }
+      }>
         <PayPalButtons
           style={{
             layout: "horizontal",
