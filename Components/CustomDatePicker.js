@@ -1,3 +1,4 @@
+// Importing necessary libraries and components
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import {
@@ -12,56 +13,67 @@ import {
 } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 
+// Function to check availability of a date from an API
+async function checkAvailability(reqDate, reqDesc) {
+  try {
+    const response = await fetch("/api/checkDate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ reqDate, reqDesc }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.isWithinTimeSlots;
+    } else {
+      console.error("Error checking time slot");
+    }
+  } catch (error) {
+    console.error("Error in checking availability:", error);
+  }
+}
+
+// CustomDatePicker component
 const CustomDatePicker = ({ onChange, disabled, serviceSelected, desc }) => {
+  // startDate state for DatePicker
   const [startDate, setStartDate] = useState(null);
 
+  // useEffect to update available date whenever serviceSelected changes
   useEffect(() => {
-    if (serviceSelected) {
-      getAvailableDate();
-    } else {
-      setStartDate(); // Reset the date when service is not selected
-    }
+    serviceSelected ? getAvailableDate() : setStartDate(null);
   }, [serviceSelected]);
 
-  const findNextAvailableDate = async (startDate, desc) => {
-    console.log("start date >>>>>> " + startDate);
-    let nextAvailableDate = getNextAvailableTime(startDate);
-    console.log("nextAvailableDate >>>>>>> " + nextAvailableDate);
-    console.log("before the await");
+  // Recursive function to find the next available date
+  const findNextAvailableDate = async (date, desc) => {
+    let nextAvailableDate = getNextAvailableTime(date);
     let isDateAvailable = await checkAvailability(nextAvailableDate, desc);
-    console.log("is Date Available >> " + isDateAvailable);
+
+    // If date is not available, add an hour and check again
     if (isDateAvailable) {
       let newDate = getNextAvailableTime(addHours(nextAvailableDate, 1));
-      console.log("newDate >>" + newDate);
-      return findNextAvailableDate(newDate); // Recursively call the function with the new date
+      return findNextAvailableDate(newDate, desc);
     } else {
-      return startDate; // Found a valid available date
+      return date;
     }
   };
 
+  // Function to get the next date of a specific day of the week
   const getNextDayOfWeek = (date, dayOfWeek) => {
     const resultDate = new Date(date.getTime());
     resultDate.setDate(date.getDate() + ((7 + dayOfWeek - date.getDay()) % 7));
     return resultDate;
   };
 
+  // Function to get the available date
   const getAvailableDate = async () => {
-    const initialDate = new Date(); // current date
-    let nextAvailableDate;
+    const initialDate = new Date();
+    let nextAvailableDate =
+      initialDate.getDay() === 1 || initialDate.getDay() === 3
+        ? initialDate
+        : getNextDayOfWeek(initialDate, initialDate.getDay() === 1 ? 3 : 1);
 
-    // If the current day is not Monday or Wednesday, find the next Monday or Wednesday
-    if (initialDate.getDay() !== 1 && initialDate.getDay() !== 3) {
-      const nextMonday = getNextDayOfWeek(initialDate, 1);
-      const nextWednesday = getNextDayOfWeek(initialDate, 3);
-
-      // Set the next available date to the earliest upcoming day (either next Monday or Wednesday)
-      nextAvailableDate =
-        nextMonday < nextWednesday ? nextMonday : nextWednesday;
-    } else {
-      nextAvailableDate = initialDate;
-    }
-
-    // Set the time to 9:00
     nextAvailableDate = setHours(setMinutes(nextAvailableDate, 0), 9);
 
     try {
@@ -73,60 +85,40 @@ const CustomDatePicker = ({ onChange, disabled, serviceSelected, desc }) => {
     }
   };
 
+  // Function to get the next available time
   const getNextAvailableTime = (date) => {
     let nextTime = new Date(date);
-    // Loop until a valid time slot is found
     while (!filterPassedDateTime(nextTime)) {
       nextTime = addHours(nextTime, 1);
-
-      // If the time reaches 16:00, set it to 18:00
-      if (nextTime.getHours() === 16) {
-        nextTime = setHours(setMinutes(nextTime, 0), 18);
-      }
-
-      // If the time reaches 22:00, set it to the next day at 09:00
-      if (nextTime.getHours() === 22) {
-        nextTime = setHours(setMinutes(addDays(nextTime, 1), 0), 9);
-      }
+      if (nextTime.getHours() === 16) nextTime = setHours(setMinutes(nextTime, 0), 18);
+      if (nextTime.getHours() === 22) nextTime = setHours(setMinutes(addDays(nextTime, 1), 0), 9);
     }
-
     return nextTime;
   };
 
-  const filterPassedTime = (time) => {
-    const selectedTime = new Date(time);
-    return (
-      (!isPast(selectedTime) || isAfter(selectedTime, new Date())) &&
-      (isMonday(time) || isWednesday(time))
-    );
-  };
+  // Function to filter out past times and non-Monday/Wednesday
+  const filterPassedTime = (time) => !isPast(time) && (isMonday(time) || isWednesday(time));
 
-  const filterPassedDateTime = (time) => {
-    return filterPassedTime(time) && filterTime(time);
-  };
-
+  // Function to filter times outside the allowed time slots
   const filterTime = (time) => {
     const hour = time.getHours();
     return (hour >= 9 && hour < 15) || (hour >= 18 && hour < 21);
   };
 
+  // Function to filter both past dates and times outside the allowed time slots
+  const filterPassedDateTime = (time) => filterPassedTime(time) && filterTime(time);
+
+  // Function to handle date change event
   const handleDateChange = (date) => {
     if (date && !isPast(date)) {
-      // Check to make sure the date isn't in the past
-      const hours = date.getHours();
-      const minutes = date.getMinutes();
-
-      if (hours !== 0 || minutes !== 0) {
-        setStartDate(date);
-        onChange(date);
-      } else {
-        setStartDate(null);
-      }
+      setStartDate(date);
+      onChange(date);
     } else {
       setStartDate(null);
     }
   };
 
+  // DatePicker component
   return (
     <DatePicker
       required
@@ -146,21 +138,3 @@ const CustomDatePicker = ({ onChange, disabled, serviceSelected, desc }) => {
 };
 
 export default CustomDatePicker;
-
-async function checkAvailability(reqDate, reqDesc) {
-  const response = await fetch("/api/checkDate", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ reqDate, reqDesc }),
-  });
-
-  if (response.ok) {
-    const data = await response.json();
-    return data.isWithinTimeSlots;
-  } else {
-    // display new error instead maybe?
-    console.log("Error checking time slot");
-  }
-}
