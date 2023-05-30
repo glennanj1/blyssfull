@@ -155,7 +155,7 @@ export default function Book() {
                             </option>
                             )}
                             <option
-                              value="1.00"
+                              value="111.00"
                               label="1 Hour Distance Reiki Session"
                             >
                               1 Hour Distance Reiki Session
