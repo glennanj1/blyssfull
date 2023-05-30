@@ -107,7 +107,11 @@ function HeroHome() {
                   </Link>
                 </div>
               </div>
-              <div className="flex justify-center content-center md:items-start md:justify-center py-4 md:py-8">
+              <div 
+                data-aos="zoom-y-in"
+                data-aos-delay="300"
+                className="flex justify-center content-center md:items-start md:justify-center py-4 md:py-8"
+              >
                 {/* Social links */}
                 <ul className="flex mb-4 md:order-1 md:mb-0">
                   <li className="mr-3">

@@ -1,21 +1,52 @@
 import React, { useState } from "react";
 import { useSession, useEffect } from "next-auth/react";
 import { useRouter } from "next/router";
+import Popup from "@/Components/PopUp";
 
 export default function Welcome() {
   const [authed, setAuthed] = useState(false);
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
+  const [popUp, setPopUp] = useState(false);
+  const [message, setMessage] = useState();
+  const [type, setType] = useState();
+  const [subject, setSubject] = useState();
   const { data: session, status, user } = useSession();
   const router = useRouter();
-
+  
+  const validateInput = (name) => {
+    const regex = /^[a-zA-Z]{1,20}$/;
+    return regex.test(name);
+  };
+  
   const reloadSession = () => {
     const event = new Event("visibilitychange");
     document.dispatchEvent(event);
   };
 
+  const clearPopUp = () => {
+      setPopUp(false);
+      setMessage('');
+      setType('');
+      setSubject('');
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    if (!validateInput(firstName) || !validateInput(lastName)) {
+      // show pop up
+      setPopUp(true);
+      setMessage('Invalid input, only alphabets are allowed in first and last names.');
+      setType('error');
+      setSubject('Error');
+      setTimeout(() => {
+        clearPopUp();
+      }, 5000);
+
+      console.log('Invalid input, only alphabets are allowed in first and last names. No whitespace allowed');
+      return;
+    }
     fetch("/api/newuser/", {
       method: "POST",
       body: JSON.stringify({
@@ -26,11 +57,17 @@ export default function Welcome() {
       .then((res) => {
         if (res.ok) {
           console.log("res ok");
-
           reloadSession();
           router.push("/");
         } else {
-          console.log("Error please report email john");
+          // show pop up
+          setPopUp(true);
+          setMessage('There was an problem saving the name please try again later');
+          setType('error');
+          setSubject('Error');
+          setTimeout(() => {
+            clearPopUp();
+          }, 5000);
         }
       })
       .then((data) => {
@@ -44,6 +81,7 @@ export default function Welcome() {
   if (authed) {
     return (
       <>
+        {popUp ? (<Popup type={type} message={message} subject={subject} />) : null}
         <div class="md:shadow-xl pt-32 pb-12 md:p-80 md:pt-40 md:pb-20 w-50">
           <div>
             <div class="md:grid md:grid-cols-3 md:gap-6">

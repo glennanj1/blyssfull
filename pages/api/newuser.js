@@ -1,6 +1,7 @@
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from "next-auth/next"
 const mongoose = require("mongoose");
+const regex = /^[a-zA-Z]{1,20}$/;
 mongoose.connect(process.env.MONGODB_URI);
 
 export default async function handler(req, res) {
@@ -9,17 +10,21 @@ export default async function handler(req, res) {
   const { method } = req;
   if (method === 'POST') {
     try {
-      console.log(session);
-      console.log(req);
       if (session) {
         let User = await mongoose.connection.db
         .collection("users")
-        .findOne({ _id: new mongoose.Types.ObjectId(session.id) }, (err, user) => {
+        .findOne({ _id: new mongoose.Types.ObjectId(session.id) }, (err) => {
           if (err) {
             console.log(err);
           }
         })
-        console.log('USER >>>>>> ' + JSON.parse(JSON.stringify(User)))
+   
+        if (!regex.test(JSON.parse(req.body).firstName) || !regex.test(JSON.parse(req.body).lastName)) {
+          console.log('regex failed')
+          return res.status(400).json({ error: 'Invalid input, only alphabets are allowed in first and last names.' });
+        }
+
+
         if (User?.newUser) {
           session.newUser = false;
           console.log('user new user save')
