@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Router from "next/router";
-// import CustomDatePicker from "@/Components/CustomDatePicker";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
-import Paypal from "../Components/Paypal";
-import Calcom from "../Components/Calcom";
+import Paypal from "../../../Components/Paypal";
+import Calcom from "../../../Components/Calcom";
 
 export default function Book() {
   const { data: session, status } = useSession();
@@ -19,8 +18,12 @@ export default function Book() {
   const [promo, setPromo] = useState(false);
   const [addressData, setAddressData] = useState({address: '', city: '', state: '', zip: ''});
   const [showPayment, setShowPayment] = useState(false);
-  const [showCalcom, setshowCalcom] = useState(false);
 
+  const [showCalcom, setshowCalcom] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [services, setServices] = useState();
+  const [error, setError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState([])
   const handleSubmit = async (event, router) => {
     event.preventDefault();
 
@@ -74,14 +77,24 @@ export default function Book() {
     }
   }
 
-  const handleDateChange = async () => {
-    const data = await checkAvailability();
-    console.log(data);
-    return data;
-  };
+  async function getServices() {
+    try {
+        setIsLoading(true);
+        const response = await fetch('/api/getEvents');
+        const data = await response.json();
+        setServices(data.data.events);
+    } catch {
+        console.error('ERROR')
+        setError(true);
+        setErrorMessage('There was an issue pulling services please try again shortly')
+    }
+  }
 
   useEffect(() => {
-    handleDateChange();
+    console.log()
+    if (!services) {
+        getServices();
+    }
     // promo is the free one form fields are moving to calcom
     if (promo && price === null) {
       setFormValid(false);
@@ -90,21 +103,26 @@ export default function Book() {
     } else {
       setFormValid(true);
     }
-  }, [selectedDate, price, setFormValid, formValid, loading, isSlotAvailable]);
+    debugger;
+  }, [selectedDate, price, setFormValid, formValid, loading, isSlotAvailable, services]);
 
   const handleServiceChange = (e) => {
-    setPrice(e.target.value);
-    setDesc(e.target[e.target.selectedIndex].text);
-    if (e.target[e.target.selectedIndex].text === "Introductory Session") {
-      setPromo(true);
-    } else if (e.target[e.target.selectedIndex].text !== "Introductory Session") {
-      setPromo(false);
-    } else {
-      setPromo(false);
+      setPrice(e.target.value);
+      setDesc(e.target[e.target.selectedIndex].text);
+      debugger;
+      if (e.target[e.target.selectedIndex].text === "Introductory Session") {
+          setPromo(true);
+          debugger;
+        } else if (e.target[e.target.selectedIndex].text !== "Introductory Session") {
+            setPromo(false);
+            debugger;
+        } else {
+            setPromo(false);
+            debugger;
     }
   };
 
-
+  // *** Fix ME
   if (!authed) {
     return (
       <>
@@ -142,7 +160,9 @@ export default function Book() {
                           >
                             Service
                           </label>
-                          <select
+                          {services ? (
+                            <>
+                            <select
                             required
                             onChange={handleServiceChange}
                             id="services"
@@ -151,43 +171,26 @@ export default function Book() {
                             autoComplete="services-name"
                             className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           >
-                            <option value=""></option>
+                          <option value=""></option>
                             {session?.introSessionUsed ? null : (
                               <option value="0.00" label="Introductory Session">
                               Introductory Session
                             </option>
                             )}
-                            <option
-                              value="111.00"
-                              label="1 Hour Distance Reiki Session"
-                            >
-                              1 Hour Distance Reiki Session
-                            </option>
-                            <option
-                              value="55.00"
-                              label="30 Minute Distance Reiki Session"
-                            >
-                              30 Minute Distance Reiki Session
-                            </option>
-                            <option
-                              value="33.00"
-                              label="30 Minute Tarot Reading"
-                            >
-                              30 Minute Tarot Reading
-                            </option>
-                            <option
-                              value="33.00"
-                              label="30 Minute Oracle Reading"
-                            >
-                              30 Minute Oracle Reading
-                            </option>
-                            <option
-                              value="22.00"
-                              label="15 Minute Oracle Reading"
-                            >
-                              15 Minute Oracle Reading
-                            </option>
-                          </select>
+                             {services?.map(s => {
+                                return (
+                                <option
+                                  key={s.id}
+                                  value={s.slug}
+                                  label={s.title}
+                                >
+                                  {s.title}
+                                </option>
+                                )
+                             })}
+                            </select>
+                            </>
+                          ) : null}
                         </div>
                         {promo ? (
                           <>
@@ -268,24 +271,6 @@ export default function Book() {
                             </div>
                           </>
                         ) : null}
-
-                        {/* <div className="col-span-6 sm:col-start-1 col-end-7">
-                          <label className="block text-sm font-medium leading-6 text-gray-900">
-                            Pick Date
-                          </label>
-                          <CustomDatePicker
-                            disabled={formValid}
-                            onChange={handleDateChange}
-                            serviceSelected={desc !== null}
-                          />
-                          {loading && <p>Loading availability...</p>}
-                          {!isSlotAvailable && (
-                            <p className="text-red-500">
-                              The selected date and time slot is already booked.
-                              Please choose a different slot.
-                            </p>
-                          )}
-                        </div> */} 
                       </div>
                       {/* calcom here */}
                       {showCalcom &&
