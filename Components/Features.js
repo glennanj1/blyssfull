@@ -45,9 +45,9 @@ function Features() {
                 <h3 className="h3 mb-3">Powerful Healing</h3>
                 <p className="text-xl text-gray-600">
                   With our spiritual healing service, you can expect to
-                  experience a profound shift in your energy and mindset. You'll
+                  experience a profound shift in your energy and mindset. You&apos;ll
                   feel more balanced, centered, and connected to your higher
-                  self. You'll gain clarity and insight into your life's
+                  self. You&apos;ll gain clarity and insight into your life&apos;s
                   purpose, and discover the tools you need to create the life
                   you desire.
                 </p>

@@ -1,19 +1,19 @@
 // Import necessary libraries
 import { useSession } from "next-auth/react";
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 // AdminPage component
 export default function AdminPage(props) {
     const { data: session, status } = useSession();
     const [loading, setLoading] = useState(true);
-    const router = useRouter()
+    // const router = useRouter()
 
   // Client-side check and redirection
   useEffect(() => {
     debugger;
     if (!(session && session.role === 'admin')) {
-      router.push('/auth/Signin');
+      // router.push('/auth/Signin');
     } 
   }, [session])
 

@@ -93,7 +93,7 @@ function HeroHome() {
                 <div>
                   <Link
                     className="btn shadow-purple-500/50 text-white bg-purple-700 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0"
-                    href="/book"
+                    href="/v1/booking"
                   >
                     Book Now
                   </Link>

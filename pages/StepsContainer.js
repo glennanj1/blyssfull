@@ -19,7 +19,7 @@ export default function StepsContainer() {
     
   }, []);
 
-  if (!authed) {
+  if (authed) {
     const renderStep = () => {
         switch (currentStep) {
           case 1:
@@ -52,7 +52,7 @@ export default function StepsContainer() {
 
   return (
     <>
-      <div className="animate-pulse md:shadow-xl lg:pt-32 pt-32 pb-12 lg:p-80 md:p-10 md:pt-40 md:pb-20 w-50">
+      <div className="animate-pulse md:shadow-xl lg:pt-32 pt-32 pb-12 lg:p-40 md:p-10 md:pt-40 md:pb-20 w-50">
         <div>
           <div className="md:grid md:grid-cols-3 md:gap-6">
             <div className="md:col-span-1">

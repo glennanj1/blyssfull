@@ -9,7 +9,12 @@ module.exports = {
   ],
   theme: {
     extend: {
-   
+      transitionProperty: {
+        // If you're customizing, ensure 'transform' is included
+        'height': 'height',
+        'spacing': 'margin, padding',
+        'transform': 'transform',
+      },
       height: {
         "10v": "10vh",
         "20v": "20vh",

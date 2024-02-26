@@ -1,14 +1,31 @@
 // components/layout.js
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
-import StepsContainer from "../StepsContainer";
-import { useStep } from '@/context/StepContext';
+import StepsContainer from "../../StepsContainer";
+import { useStep } from "@/context/StepContext";
 
 const Layout = () => {
-// Using useStep to access the formData from context
-const { formData } = useStep();
+  // Using useStep to access the formData from context
+  const { formData } = useStep();
+  const [price, setPrice] = useState();
+
+  useEffect(() => {
+    if (
+      formData?.service?.attributes?.Price &&
+      formData?.additionalService?.attributes?.Price
+    ) {
+      const combinedPrice = formData?.service?.attributes?.Price + formData?.additionalService?.attributes?.Price
+      setPrice(
+        combinedPrice
+      );
+    } else if (formData?.service?.attributes?.Price) {
+      setPrice(formData?.service?.attributes?.Price);
+    } else {
+      setPrice(0);
+    }
+  }, [formData]);
 
   return (
     <>
@@ -26,7 +43,7 @@ const { formData } = useStep();
                 </h2>
                 {formData?.service?.attributes?.Price ? (
                   <h2 className="text-1xl md:text-3xl font-extrabold leading-tighter tracking-tighter mb-4">
-                    Price: ${formData?.service?.attributes?.Price}
+                    Price: ${price}
                   </h2>
                 ) : null}
                 <p className="mt-1 text-xl text-black underline">
@@ -35,7 +52,7 @@ const { formData } = useStep();
               </div>
             </div>
             <div className="md:col-span-4">
-            <StepsContainer />
+              <StepsContainer />
             </div>
           </div>
         </div>
