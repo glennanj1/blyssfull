@@ -6,15 +6,8 @@ import StepOne from "../Components/StepOne";
 import StepTwo from "../Components/StepTwo";
 import StepThree from "../Components/StepThree";
 import StepFour from "../Components/StepFour";
-import StepFive from "../Components/StepFive";
 import { useSession } from "next-auth/react";
 import Router from "next/router";
-import Header from "@/Components/Header";
-import Footer from "@/Components/Footer";
-// import Paypal from "../../../Components/Paypal";
-import Calcom from "@/Components/Calcom";
-
-// Import other steps similarly
 
 export default function StepsContainer() {
   const { data: session, status } = useSession();
@@ -38,8 +31,6 @@ export default function StepsContainer() {
             return <StepThree />;
           case 4:
             return <StepFour />;
-          case 5:
-            return <StepFive />;
           default:
             return <div>Likely Redirect</div>;
         }
