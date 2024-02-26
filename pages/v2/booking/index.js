@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import Router from "next/router";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
-import Paypal from "../../../Components/Paypal";
+// import Paypal from "../../../Components/Paypal";
 import Calcom from "../../../Components/Calcom";
 
 export default function Book() {
@@ -11,6 +11,7 @@ export default function Book() {
   const [authed, setAuthed] = useState(false);
   const [price, setPrice] = useState(null);
   const [desc, setDesc] = useState(null);
+  const [url, setUrl] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [formValid, setFormValid] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -19,11 +20,13 @@ export default function Book() {
   const [addressData, setAddressData] = useState({address: '', city: '', state: '', zip: ''});
   const [showPayment, setShowPayment] = useState(false);
 
-  const [showCalcom, setshowCalcom] = useState(false);
+  const [showCalcom, setShowCalcom] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [services, setServices] = useState();
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState([])
+  const [showStep2, setShowStep2] = useState(false)
+  const [showPayPal, setShowPayPal] = useState(false)
   const handleSubmit = async (event, router) => {
     event.preventDefault();
 
@@ -82,7 +85,7 @@ export default function Book() {
         setIsLoading(true);
         const response = await fetch('/api/getEvents');
         const data = await response.json();
-        setServices(data.data.events);
+        setServices(data.data);
     } catch {
         console.error('ERROR')
         setError(true);
@@ -96,31 +99,30 @@ export default function Book() {
         getServices();
     }
     // promo is the free one form fields are moving to calcom
-    if (promo && price === null) {
-      setFormValid(false);
-    } else if (selectedDate !== null && price !== null) {
-      setFormValid(false);
-    } else {
-      setFormValid(true);
+    if (price != null) {
+      setShowStep2(true);
     }
     debugger;
   }, [selectedDate, price, setFormValid, formValid, loading, isSlotAvailable, services]);
 
   const handleServiceChange = (e) => {
+    debugger;
       setPrice(e.target.value);
       setDesc(e.target[e.target.selectedIndex].text);
-      debugger;
+      setUrl(e.target[e.target.selectedIndex].dataset.url);
       if (e.target[e.target.selectedIndex].text === "Introductory Session") {
           setPromo(true);
-          debugger;
         } else if (e.target[e.target.selectedIndex].text !== "Introductory Session") {
             setPromo(false);
-            debugger;
         } else {
             setPromo(false);
-            debugger;
     }
   };
+
+  const handleStep2 = () => {
+    debugger;
+    setShowCalcom(true);
+  }
 
   // *** Fix ME
   if (!authed) {
@@ -179,13 +181,14 @@ export default function Book() {
                             )}
                              {services?.map(s => {
                                 return (
-                                <option
-                                  key={s.id}
-                                  value={s.slug}
-                                  label={s.title}
-                                >
-                                  {s.title}
-                                </option>
+                                  <option
+                                    key={s?.id}
+                                    value={s?.attributes?.Price}
+                                    label={s?.attributes?.Title}
+                                    data-url={s?.attributes?.Url}
+                                  >
+                                    {s.attributes?.Title}
+                                  </option>
                                 )
                              })}
                             </select>
@@ -273,35 +276,33 @@ export default function Book() {
                         ) : null}
                       </div>
                       {/* calcom here */}
-                      {showCalcom &&
-
+                      {showCalcom && showStep2 &&
                         <div className="w-[800px] h-[100vh] mt-5 px-4 py-3">
-                          <Calcom />
+                          <Calcom theurl={url} />
                         </div>
                       }
-                      <div className="bg-gray-50 mt-5 px-4 py-3 text-right sm:px-6">
-                        {promo && showPayment ? (
-                          <button
-                            disabled={!isSlotAvailable}
-                            type="submit"
-                            className="disabled:bg-purple-100 group relative flex w-full justify-center rounded-md bg-purple-700 py-2 px-3 text-sm font-semibold text-white hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            aria-label="Subscribe"
-                          >
-                            Book
-                          </button>
-                        ) : (
-                          <Paypal
-                            isDisabled={formValid || !isSlotAvailable}
-                            cost={price}
-                            date={selectedDate}
-                            desc={desc}
-                            userId={session?.id}
-                          />
-                        )}
-                      </div>
                     </div>
                   </div>
                 </form>
+                <div className="bg-gray-50 mt-5 px-4 py-3 text-right sm:px-6">
+                  {showStep2 && promo ? (
+                      <button
+                        className="disabled:bg-purple-100 group relative flex w-full justify-center rounded-md bg-purple-700 py-2 px-3 text-sm font-semibold text-white hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        aria-label="Step 2"
+                        onClick={() => handleStep2()}
+                      >
+                        Next
+                      </button>
+                  ) : (
+                    <button
+                        className="disabled:bg-purple-100 group relative flex w-full justify-center rounded-md bg-purple-700 py-2 px-3 text-sm font-semibold text-white hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        aria-label="Step 2"
+                        onClick={() => handleStep2()}
+                      >
+                        Next
+                      </button>
+                  ) }
+                </div>
               </div>
             </div>
           </div>
@@ -368,15 +369,15 @@ export default function Book() {
   );
 }
 
-async function checkAvailability() {
-  // check date for custom logic
-  const response = await fetch("http://localhost:3005/api/additional-services");
+// async function checkAvailability() {
+//   // check date for custom logic
+//   const response = await fetch("http://localhost:3005/api/additional-services");
 
-  if (response.ok) {
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } else {
-    console.log("Error checking time slot");
-  }
-}
+//   if (response.ok) {
+//     const data = await response.json();
+//     console.log(data);
+//     return data;
+//   } else {
+//     console.log("Error checking time slot");
+//   }
+// }

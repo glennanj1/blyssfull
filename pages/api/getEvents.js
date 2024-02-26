@@ -11,13 +11,11 @@ async function handler(req, res) {
         const response = await fetch(process.env.EVENTURL, {
           method: "GET",
           headers: {
-            authorization: `Bearer ${STRAPI_API_KEY}`
+            authorization: `Bearer ${process.env.STRAPI_API_KEY}`
           }
         });
         const data = await response.json();
-        events = data.event_types;
-        console.log(events);
-        return res.status(200).json({ success: true, data: {events}}); // Added return statement
+        return res.status(200).json({ success: true, data: data?.data}); // Added return statement
     } else {
       res.status(405).json({ message: "Method not allowed" });
     }

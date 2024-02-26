@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "divine-builder-387721",
+  "private_key_id": "988c2e050b2acd8fce42e4e85073947f02618b3e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDhksc28WZ2w+4S\n1pIr6vy3g6EGMqhemS4HF2zRSY4AvOo7xf/0a0AyG/xkAwLaR6ovPTraaSbBdWAS\noR+8znBThl/zAjWm2jYhDCiQcuy6oGlyb/2WwZAAcIEAKEcujjZaPnx08/IA9yxA\n7OeQOfJv9HOCWxbfg/wvOWZAOIBuVlB9uPhoHBWZVukTiljCDl/fZZKdSY9JhfdQ\nvsyPbhE5ibMUDb23MhAS4OXdi3fEnyRSL37f/AO/MWc5vsMH/hObAXlF3AdPCHxV\n5rc+uHcF8VnMiqTN3URvrsTBzgmlb8Vxl1pxjyv/NMxOZ2/nBoVNi84g+5abir5V\nlhddLtJlAgMBAAECgf8OoE+mEb7lUBSBRGh4D+dTB13EOyCgb9eSHv29S2QP6Jx1\nSNPRjCfUjO5vGmkGiAZ5S8jT+TqAxBCQ9TL4kC0mkGFYobUojur1SN3ctiVflZB4\nu8AQXADjcTbh8C3vgu9DtHnXfdSKlVcGRhyK04829voTHVkliRcawNbVcAI6UvLs\n3QtmJeyvnWNGQGABvwgeBrJceV+T6TVwnrazZJATdW38cflUCQKmBwIB+2FiT7eu\nPcrvw9S1nqgP3KvjVxn0i4SJ1pH30rnciztUvIyjwVkaTdsLNlUD6p1hieNkpCrU\nt9yAfkQHN29AHXAAjX+q+bRJS06vWQH6rOefp5ECgYEA/3B0VzXCZihZFWbRj2zA\nt8OTfEMjLo3kGqiDWn3OTFFkUUOAHhTxA/sVJSerbrhwSOBPUE7CX8Nae6unTi1i\nf5YBAUDLkt9+BLA5v7HMDpIvCDMOdEOCLvNyup1zCJwHaG7U6Gov2kv0XLCRZgHL\njS3nizXI7Iv1crHx0bMxkKkCgYEA4hGKV8yqfPDEg9Qxp+JRz8yXUUjBu38FuOlh\nRETJAFGtPGqPxYvzNSBAyYOhDuS2QO+s9sOOUkMf3m/hjkJZdLP/qO6sHiiejnx9\nUBcXASnDORTDdRGok9cUcrxqxICNOJGft2eUO7epVzRvWsQ8/6ZZBSAgxqySoVgm\nCS8tPV0CgYEAx7j7njywdQPTM4KjE8tqm8RVivFLjtjuo1Fi8twu80kocMmgYOTq\n1bv5+oUb64RWdwS7vwT1wb6S/uNl+yBNRYjZ3Er3YS1R8QSBArtX24S9NWIGSS2H\nmoJLEFKPYQnuWN9fpSFxrPN6awa7iNCagRaFVjmFkj6UeUtc0iOT+5ECgYEAvkGK\nz1eEx/+NM3E6lRLoTVzeoF7+BIDjXPq0jFLjYqxagjUgaF3ewgAx5iYsPq+HHuFX\nDJoJxfuN75LzHdmDFa+C4zZyjjMbNclZYTT9fFIcZYau9HB3Emz5XZJqvJN/xnLw\nGtdGLnfkQWr0qEvtFi52TtT6IJoOEVFxOVuF1FUCgYEA1L3ocGHgeE55RNTJQxJw\nKFKq06wQeh1R858Se7AkhOn4TccmRHgk69fngV0gTo1D9T+SsBQsOFhL7/ztj+17\nns9QnLLU8z8WAPgz8ZUlDPZFyfud5hKBIUjkd5SJG4zv8sVU2zUP4SWpWi//jCfk\nJqOTJ/ky3NlS0aSRVz607Ds=\n-----END PRIVATE KEY-----\n",
+  "client_email": "bm-google-inv-services@divine-builder-387721.iam.gserviceaccount.com",
+  "client_id": "107179361456479062891",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bm-google-inv-services%40divine-builder-387721.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

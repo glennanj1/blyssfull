@@ -8,7 +8,7 @@
   
   import Cal, { getCalApi } from "@calcom/embed-react";
   import { useEffect } from "react";
-  export default function Calcom() {
+  export default function Calcom(props) {
 	useEffect(()=>{
 	  (async function () {
 		const cal = await getCalApi();
@@ -25,11 +25,11 @@
 	}, [])
 	return (
 		<Cal
-		calLink="jfootball81/15min"
-		style={{width:"100%",height:"100%",overflow:"scroll"}}
-		config={{layout: 'month_view'}}
-		calOrigin="https://calendar.glennan.cloud"
-		calJsUrl="https://calendar.glennan.cloud/embed/embed.js"
+			calLink={`blyssfullmagick/${props?.theurl}`}
+			style={{width:"100%",height:"100%",overflow:"scroll"}}
+			config={{layout: 'month_view'}}
+			calOrigin="https://calendar.glennan.cloud"
+			calJsUrl="https://calendar.glennan.cloud/embed/embed.js"
 		/>
 	);
   };
