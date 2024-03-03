@@ -11,7 +11,6 @@ export default function AdminPage(props) {
 
   // Client-side check and redirection
   useEffect(() => {
-    debugger;
     if (!(session && session.role === 'admin')) {
       // router.push('/auth/Signin');
     } 

@@ -117,7 +117,7 @@ function Footer() {
                 <Link href='/' className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Home</Link>
               </li>
               <li className="mb-2">
-                <Link href='/book' className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Book</Link>
+                <Link href='/v1/booking' className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Book</Link>
               </li>
               <li className="mb-2">
                 <Link href='/About' className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">About</Link>

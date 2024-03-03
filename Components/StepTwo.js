@@ -10,7 +10,7 @@ export default function StepOne() {
   const { nextStep, prevStep, updateFormData, formData } = useStep();
   // Local state for managing UI and data
   const [services, setServices] = useState([]);
-  const [selectedService, setSelectedService] = useState(formData.additionalService || null);
+  const [selectedServices, setSelectedServices] = useState(formData.additionalService || null);
   const [error, setError] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -32,19 +32,38 @@ export default function StepOne() {
     }
   }, []); // Empty dependency array to run once
 
-  // Handles service selection, allowing toggle behavior
   const handleServiceSelect = (service) => {
-    const isSameServiceSelected = selectedService?.id === service?.id;
-
-    // Update selected service or unset if the same service is selected again
-    const serviceToSet = isSameServiceSelected ? null : service;
-    setSelectedService(serviceToSet);
-    // Update context with the new selection
+    // Initialize selectedServices as an array if it's undefined or null
+    const currentSelectedServices = selectedServices || [];
+  
+    // Check if the service is already selected
+    const isServiceSelected = currentSelectedServices.some(selectedService => selectedService.id === service.id);
+  
+    let updatedServices = [];
+  
+    if (currentSelectedServices.length === 0) {
+      // If no services are currently selected, add the new service to the selection
+      updatedServices = [service];
+    } else {
+      if (isServiceSelected) {
+        // If the service is already selected, remove it from the selection
+        updatedServices = currentSelectedServices.filter(selectedService => selectedService.id !== service.id);
+      } else {
+        // If the service is not currently selected, add it to the selection
+        // This allows adding to an existing selection, enabling multi-select functionality
+        updatedServices = [...currentSelectedServices, service];
+      }
+    }
+  
+    setSelectedServices(updatedServices); // Update the state with the new list of selected services
+  
+    // Update context or form data with the new selection
     updateFormData({
       ...formData,
-      additionalService: serviceToSet,
+      additionalServices: updatedServices,
     });
   };
+  
 
   // Handles form submission, moving to the next step
   const onSubmit = (data) => {
@@ -75,24 +94,24 @@ export default function StepOne() {
                 <label htmlFor="additionalServices" className="block text-sm font-medium leading-6 text-gray-900">Additional Services</label>
                 <div className="container mx-auto px-4 py-8">
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {services.map((service) => (
-                      <Transition
-                        as="div"
-                        key={service.id}
-                        show={true}
-                        enter="transform transition duration-[400ms]"
-                        enterFrom="opacity-0 scale-75"
-                        enterTo="opacity-100 scale-100"
-                        className={`bg-white shadow rounded-lg p-4 cursor-pointer ${selectedService?.id === service?.id ? "ring-2 ring-indigo-500" : ""}`}
-                        onClick={() => handleServiceSelect(service)}
-                      >
-                        {service.attributes?.Title}
-                      </Transition>
-                    ))}
+                  {services.map((service) => (
+                    <Transition
+                      as="div"
+                      key={service.id}
+                      show={true}
+                      enter="transform transition duration-[400ms]"
+                      enterFrom="opacity-0 scale-75"
+                      enterTo="opacity-100 scale-100"
+                      className={`bg-white shadow rounded-lg p-4 cursor-pointer ${formData.additionalServices?.some(selectedService => selectedService.id === service.id) ? "ring-2 ring-indigo-500" : ""}`}
+                      onClick={() => handleServiceSelect(service)}
+                    >
+                      {service.attributes?.Title}
+                    </Transition>
+                  ))}
                   </div>
                 </div>
                 {/* Navigation buttons */}
-                <button type="submit" className="mt-4 w-full flex justify-center rounded-md bg-purple-700 py-2 px-4 text-sm font-semibold text-white hover:bg-purple-500 disabled:bg-purple-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                <button disabled={!formData?.service} type="submit" className="mt-4 w-full flex justify-center rounded-md bg-purple-700 py-2 px-4 text-sm font-semibold text-white hover:bg-purple-500 disabled:bg-purple-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                   Next
                 </button>
                 <button type="button" onClick={onBack} className="mt-4 w-full flex justify-center rounded-md bg-gray-500 py-2 px-4 text-sm font-semibold text-white hover:bg-gray-400 disabled:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">

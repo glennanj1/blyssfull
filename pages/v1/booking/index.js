@@ -12,20 +12,22 @@ const Layout = () => {
   const [price, setPrice] = useState();
 
   useEffect(() => {
-    if (
-      formData?.service?.attributes?.Price &&
-      formData?.additionalService?.attributes?.Price
-    ) {
-      const combinedPrice = formData?.service?.attributes?.Price + formData?.additionalService?.attributes?.Price
-      setPrice(
-        combinedPrice
-      );
-    } else if (formData?.service?.attributes?.Price) {
-      setPrice(formData?.service?.attributes?.Price);
-    } else {
-      setPrice(0);
+    let totalPrice = 0;
+  
+    // Add the price of the primary service if it exists
+    if (formData?.service?.attributes?.Price) {
+      totalPrice += formData.service.attributes.Price;
     }
-  }, [formData]);
+  
+    // Add the prices of all additional services if any exist
+    if (formData?.additionalServices && formData.additionalServices.length > 0) {
+      formData.additionalServices.forEach(additionalService => {
+        totalPrice += additionalService.attributes.Price;
+      });
+    }
+    // Update the price state with the calculated total price
+    setPrice(totalPrice);
+  }, [formData, setPrice]);
 
   return (
     <>

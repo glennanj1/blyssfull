@@ -12,7 +12,7 @@
 	useEffect(()=>{
 	  (async function () {
 		const cal = await getCalApi();
-		cal("ui", {"styles":{"branding":{"brandColor":"#000000"}},"hideEventTypeDetails":false,"layout":" "});
+		cal("ui", {"styles":{"branding":{"brandColor":"#a33eb1"}},"hideEventTypeDetails":false,"layout":" "});
 		cal("on", {
 			action: "bookingSuccessful",
 			callback: (e) => {

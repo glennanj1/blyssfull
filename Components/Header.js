@@ -138,7 +138,7 @@ function Header({isBooking}) {
                 )
                })}
                 <li>
-                  {isBooking ? null : <Link href='/book' className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out">Book Now</Link>}
+                  {isBooking ? null : <Link href='/v1/booking' className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out">Book Now</Link>}
                 </li>
                 <li>
                   <Link href='/api/auth/signout' className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">

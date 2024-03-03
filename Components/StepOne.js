@@ -14,6 +14,7 @@ export default function StepOne() {
   useEffect(() => {
     // Set the step info in formData
     updateFormData({ ...formData, step: { title: 'Select a Service', number: 1 } });
+    console.log('form data' + JSON.stringify(formData));
 
     // Fetch services if not already loaded
     if (!services.length) {
@@ -31,13 +32,13 @@ export default function StepOne() {
 
   const handleServiceSelect = (selectedService) => {
     const isSameServiceSelected = formData.service?.id === selectedService?.id;
-
     // Toggle selection
     const serviceToSet = isSameServiceSelected ? null : selectedService;
     updateFormData({
       ...formData,
       service: serviceToSet,
     });
+    console.log(formData);
 
     // Set promo based on service selection
     setPromo(serviceToSet?.title === "Introductory Session");
@@ -83,6 +84,7 @@ export default function StepOne() {
                 <button
                   type="submit"
                   className="mt-4 w-full flex justify-center rounded-md bg-purple-700 py-2 px-4 text-sm font-semibold text-white hover:bg-purple-500 disabled:bg-purple-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  disabled={!formData?.service?.attributes?.Price}
                 >
                   Next
                 </button>

@@ -17,11 +17,6 @@ export default function StepOne() {
     nextStep();
   };
 
-  const onBack = () => {
-    prevStep();
-  }
-
-
   return (
     <div className="mt-5 md:mt-0">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -29,7 +24,7 @@ export default function StepOne() {
           <div className="bg-white px-4 py-5 sm:p-6">
             <div className="grid grid-cols-6 gap-6">
               <div className="col-span-6 sm:col-start-1 col-end-7">
-                <Calcom theurl={formData.service.attributes.Url} />
+                <Calcom theurl={formData.service.attributes.Url + `&duration=${duration}`} />
               </div>
             </div>
           </div>

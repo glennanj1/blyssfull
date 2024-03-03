@@ -1,7 +1,7 @@
 import React from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import {useRouter} from "next/router";
-
+import { useStep } from "@/context/StepContext";
 
 async function saveTransaction(details, date, desc, router, userId) {
   let data = {...details, date: date, desc: desc, userId: userId}
@@ -32,7 +32,7 @@ async function saveTransaction(details, date, desc, router, userId) {
 const Paypal = ({ cost, isDisabled, date, desc, userId }) => {
   const router = useRouter();
   const CLIENT_ID =
-    "AYGpcW1iisaJr2YYEhQrifL8EpCiZxFfse18OlAmcKBedXcfw7UuHLG24n0MriiINDigKL9apnsEeJZl";
+    "Aeq5MY0CENOcmCbMJ2Jb9RAzkXISl0VM6eO_R89asu-KoCPsRq8b_uwXBcqNji90oq6edyHDD5XITUr1";
   const createOrder = (data, actions) => {
     return actions.order.create({
       purchase_units: [

@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth/next";
 async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions)
   // fix this after dev
-  if (!session) {
+  if (session) {
       
       if (req.method === "GET") {
         let events = [];
