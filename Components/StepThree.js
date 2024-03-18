@@ -10,6 +10,11 @@ export default function StepOne() {
 
   useEffect(() => {
     let totalPrice = 0;
+
+    updateFormData({
+      ...formData,
+      step: { title: "Pay with Paypal or Venmo or Credit Card", number: 3 },
+    });
   
     // Add the price of the primary service if it exists
     if (formData?.service?.attributes?.Price) {
@@ -25,7 +30,7 @@ export default function StepOne() {
   
     // Update the price state with the calculated total price
     setPrice(totalPrice);
-  }, [formData]);
+  }, []);
   
   
 

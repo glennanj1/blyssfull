@@ -92,7 +92,7 @@ function HeroHome() {
               >
                 <div>
                   <Link
-                    className="btn shadow-purple-500/50 text-white bg-purple-700 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0"
+                    className="btn mb-8 shadow-purple-500/50 text-white bg-purple-700 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0"
                     href="/v1/booking"
                   >
                     Book Now
@@ -100,52 +100,43 @@ function HeroHome() {
                 </div>
                 <div>
                   <Link
-                    className="btn shadow-slate-900/50 text-white bg-slate-900 hover:bg-slate-700 w-full sm:w-auto sm:ml-4"
+                    className="btn mb-8 shadow-slate-900/50 text-white bg-slate-900 hover:bg-slate-700 w-full sm:w-auto sm:ml-4"
                     href="/learnmore"
                   >
                     Learn more
                   </Link>
                 </div>
-              </div>
-              <div 
-                data-aos="zoom-y-in"
-                data-aos-delay="300"
-                className="flex justify-center content-center md:items-start md:justify-center py-4 md:py-8"
-              >
-                {/* Social links */}
-                <ul className="flex mb-4 md:order-1 md:mb-0">
-                  <li className="mr-3">
-                    <Link
-                      href="https://instagram.com/blyssfull_magick?igshid=MmIzYWVlNDQ5Yg=="
-                      className="flex justify-center items-center text-black-600 hover:text-white bg-purple-400 hover:bg-purple-300 rounded-full shadow transition duration-150 ease-in-out"
-                      aria-label="Instagram"
+                <div>
+                  {/* Social links */}
+                  <Link
+                    href="https://instagram.com/blyssfull_magick?igshid=MmIzYWVlNDQ5Yg=="
+                    className="btn mb-8 shadow-slate-900/50 text-white bg-purple-700 hover:bg-slate-700 w-full sm:w-auto sm:ml-4"
+                    aria-label="Instagram"
+                  >
+                    <svg
+                      className="w-6 h-6 p-1.5 fill-current"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <svg
-                        className="w-8 h-8 p-1.5 fill-current"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M2 6C2 3.79086 3.79086 2 6 2H18C20.2091 2 22 3.79086 22 6V18C22 20.2091 20.2091 22 18 22H6C3.79086 22 2 20.2091 2 18V6ZM6 4C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6ZM12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9ZM7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12ZM17.5 8C18.3284 8 19 7.32843 19 6.5C19 5.67157 18.3284 5 17.5 5C16.6716 5 16 5.67157 16 6.5C16 7.32843 16.6716 8 17.5 8Z" />
-                      </svg>
-                    </Link>
-                  </li>
-
-                  <li className="mr-3">
-                    <Link
-                      href="https://www.facebook.com/profile.php?id=100092394606618&mibextid=LQQJ4d"
-                      className="flex justify-center items-center text-black-600 hover:text-white bg-purple-400 hover:bg-purple-300 rounded-full shadow transition duration-150 ease-in-out"
-                      aria-label="Facebook"
+                      <path d="M2 6C2 3.79086 3.79086 2 6 2H18C20.2091 2 22 3.79086 22 6V18C22 20.2091 20.2091 22 18 22H6C3.79086 22 2 20.2091 2 18V6ZM6 4C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6ZM12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9ZM7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12ZM17.5 8C18.3284 8 19 7.32843 19 6.5C19 5.67157 18.3284 5 17.5 5C16.6716 5 16 5.67157 16 6.5C16 7.32843 16.6716 8 17.5 8Z" />
+                    </svg>
+                  </Link>
+                </div>
+                <div>
+                  <Link
+                    href="https://www.facebook.com/profile.php?id=100092394606618&mibextid=LQQJ4d"
+                    className="btn shadow-slate-900/50 text-white bg-slate-900 hover:bg-slate-700 w-full sm:w-auto sm:ml-4"
+                    aria-label="Facebook"
+                  >
+                    <svg
+                      className="w-6 h-6 fill-current"
+                      viewBox="0 0 32 32"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <svg
-                        className="w-8 h-8 fill-current"
-                        viewBox="0 0 32 32"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M14.023 24L14 17h-3v-3h3v-2c0-2.7 1.672-4 4.08-4 1.153 0 2.144.086 2.433.124v2.821h-1.67c-1.31 0-1.563.623-1.563 1.536V14H21l-1 3h-2.72v7h-3.257z" />
-                      </svg>
-                    </Link>
-                  </li>
-                </ul>
+                      <path d="M14.023 24L14 17h-3v-3h3v-2c0-2.7 1.672-4 4.08-4 1.153 0 2.144.086 2.433.124v2.821h-1.67c-1.31 0-1.563.623-1.563 1.536V14H21l-1 3h-2.72v7h-3.257z" />
+                    </svg>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

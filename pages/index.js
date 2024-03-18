@@ -19,13 +19,12 @@ export default function Home() {
 
   return (
     <div className="bg-violet-300">
-     
       <Header />
       <HeroHome />
       <HomePage />
       <Features />
       <Testimonials />
-      {/* <Newsletter /> */}
+      <Newsletter />
       <Footer />
     </div>
   );

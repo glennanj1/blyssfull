@@ -13,20 +13,24 @@ export default function StepOne() {
 
   useEffect(() => {
     // Set the step info in formData
-    updateFormData({ ...formData, step: { title: 'Select a Service', number: 1 } });
-    console.log('form data' + JSON.stringify(formData));
+    if (typeof window !== 'undefined') {
 
-    // Fetch services if not already loaded
-    if (!services.length) {
-      fetchData().then(data => {
-        if (data && data.data) {
-          setServices(data.data);
-        }
-      }).catch(error => {
-        console.error("ERROR", error);
-        setError(true);
-        setErrorMessage("There was an issue pulling services please try again shortly");
-      });
+      updateFormData({ ...formData, step: { title: 'Select a Service', number: 1 } });
+      console.log('form data' + JSON.stringify(formData));
+
+      // Fetch services if not already loaded
+      if (!services.length) {
+        fetchData().then(data => {
+          if (data && data.data) {
+            updateFormData({...formData, services: data.data})
+            setServices(data.data);
+          }
+        }).catch(error => {
+          console.error("ERROR", error);
+          setError(true);
+          setErrorMessage("There was an issue pulling services please try again shortly");
+        });
+      }
     }
   }, []); // Removed services, formData, updateFormData from dependencies to avoid infinite loop
 
@@ -49,6 +53,10 @@ export default function StepOne() {
     nextStep();
   };
 
+  const displayAvailableServices = services?.filter(service => {
+    return service?.attributes?.Active === true && !service?.attributes?.AdditionalService === true
+  })
+
   async function fetchData() {
     const response = await fetch("/api/getEvents");
     if (!response.ok) throw new Error("Error fetching services");
@@ -65,7 +73,8 @@ export default function StepOne() {
                 <label htmlFor="services" className="block text-sm font-medium leading-6 text-gray-900">Services</label>
                 <div className="container mx-auto px-4 py-8">
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {services.map((service) => (
+                    {displayAvailableServices.map((service) => {
+                      return (
                       <Transition
                         as="div"
                         key={service.id}
@@ -78,7 +87,7 @@ export default function StepOne() {
                       >
                         {service.attributes?.Title}
                       </Transition>
-                    ))}
+                      )})}
                   </div>
                 </div>
                 <button

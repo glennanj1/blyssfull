@@ -16,7 +16,6 @@ export default function StepsContainer() {
   const { currentStep } = useStep();
 
   useEffect(() => {
-    
   }, []);
 
   if (authed) {

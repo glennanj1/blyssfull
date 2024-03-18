@@ -4,10 +4,10 @@ import { getServerSession } from "next-auth/next";
 async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions)
   if (session) {
-      
       if (req.method === "GET") {
         let events = [];
-        const response = await fetch(process.env.EVENTURL, {
+        const response = await fetch(process.env.EVENTURL,  {
+          cache: 'no-store',
           method: "GET",
           headers: {
             authorization: `Bearer ${process.env.STRAPI_API_KEY}`
