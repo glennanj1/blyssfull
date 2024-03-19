@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth/next";
 
 async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions)
-  if (session) {
+  // if (session) {
       if (req.method === "GET") {
         let events = [];
         const response = await fetch(process.env.EVENTURL,  {
@@ -18,9 +18,9 @@ async function handler(req, res) {
     } else {
       res.status(405).json({ message: "Method not allowed" });
     }
-  } else {
-    res.status(405).json({ message: "Not authorized" });
-  }
+  // } else {
+  //   res.status(405).json({ message: "Not authorized" });
+  // }
 }
 
 export default handler;
